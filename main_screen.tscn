@@ -1,0 +1,75 @@
+[gd_scene load_steps=3 format=3 uid="uid://cby3os2glkdab"]
+
+[ext_resource type="Script" path="res://ButtonQuit.gd" id="1_8udtn"]
+[ext_resource type="Script" path="res://ButtonLogin.gd" id="1_nasmi"]
+
+[node name="MainScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelBackground" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelTitle" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -131.0
+offset_top = 64.0
+offset_right = 131.0
+offset_bottom = 96.0
+grow_horizontal = 2
+text = "Sistema de Gestión Gastronomico"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonLogin" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.0
+offset_top = 160.0
+offset_right = 96.0
+offset_bottom = 224.0
+grow_horizontal = 2
+text = "Iniciar Sesión"
+script = ExtResource("1_nasmi")
+
+[node name="ButtonRegister" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.0
+offset_top = 240.0
+offset_right = 96.0
+offset_bottom = 304.0
+grow_horizontal = 2
+text = "Registrarse"
+
+[node name="ButtonQuit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.0
+offset_top = 320.0
+offset_right = 96.0
+offset_bottom = 384.0
+grow_horizontal = 2
+text = "Salir"
+script = ExtResource("1_8udtn")
+
+[connection signal="pressed" from="ButtonLogin" to="ButtonLogin" method="_on_pressed"]
+[connection signal="pressed" from="ButtonQuit" to="ButtonQuit" method="_on_pressed"]

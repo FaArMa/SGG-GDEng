@@ -1,0 +1,103 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0fy1tb4ak7ab"]
+
+[ext_resource type="Script" path="res://ButtonBack.gd" id="1_cyail"]
+[ext_resource type="Script" path="res://ButtonLoginFinal.gd" id="1_qjtm6"]
+
+[node name="LoginScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelBackground" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelTitle" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -131.0
+offset_top = 64.0
+offset_right = 131.0
+offset_bottom = 96.0
+grow_horizontal = 2
+text = "Sistema de Gestión Gastronomico"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEditUsername" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -131.0
+offset_top = 160.0
+offset_right = 131.0
+offset_bottom = 192.0
+grow_horizontal = 2
+placeholder_text = "Usuario..."
+
+[node name="LineEditPassword" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -131.0
+offset_top = 208.0
+offset_right = 131.0
+offset_bottom = 240.0
+grow_horizontal = 2
+placeholder_text = "Contraseña..."
+secret = true
+
+[node name="LabelIncorrectUsrPwd" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -131.0
+offset_top = 256.0
+offset_right = 131.0
+offset_bottom = 288.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "Datos incorrectos"
+vertical_alignment = 1
+
+[node name="ButtonLogin" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.0
+offset_top = 304.0
+offset_right = 96.0
+offset_bottom = 368.0
+grow_horizontal = 2
+text = "Iniciar Sesión"
+script = ExtResource("1_qjtm6")
+
+[node name="ButtonBack" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.0
+offset_top = 384.0
+offset_right = 96.0
+offset_bottom = 448.0
+grow_horizontal = 2
+text = "Volver"
+script = ExtResource("1_cyail")
+
+[connection signal="pressed" from="ButtonLogin" to="ButtonLogin" method="_on_pressed"]
+[connection signal="pressed" from="ButtonBack" to="ButtonBack" method="_on_pressed" flags=18]
