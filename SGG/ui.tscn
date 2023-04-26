@@ -77,7 +77,6 @@ position = Vector2(446.75, 334.75)
 shape = SubResource("RectangleShape2D_4w3tc")
 
 [node name="Color_Edicion_Mesas" type="ColorRect" parent="Area_Edicion_Mesas"]
-visible = false
 offset_left = 16.0
 offset_top = 40.0
 offset_right = 880.0

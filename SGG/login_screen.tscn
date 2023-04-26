@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://d0fy1tb4ak7ab"]
+[gd_scene load_steps=2 format=3 uid="uid://d0fy1tb4ak7ab"]
 
-[ext_resource type="Script" path="res://ButtonBack.gd" id="1_cyail"]
-[ext_resource type="Script" path="res://ButtonLoginFinal.gd" id="1_qjtm6"]
+[ext_resource type="Script" path="res://login_screen.gd" id="1_i1vbh"]
 
 [node name="LoginScreen" type="Control"]
 layout_mode = 3
@@ -10,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_i1vbh")
 
 [node name="PanelBackground" type="Panel" parent="."]
 layout_mode = 1
@@ -84,7 +84,6 @@ offset_right = 96.0
 offset_bottom = 368.0
 grow_horizontal = 2
 text = "Iniciar Sesión"
-script = ExtResource("1_qjtm6")
 
 [node name="ButtonBack" type="Button" parent="."]
 layout_mode = 1
@@ -97,7 +96,8 @@ offset_right = 96.0
 offset_bottom = 448.0
 grow_horizontal = 2
 text = "Volver"
-script = ExtResource("1_cyail")
 
-[connection signal="pressed" from="ButtonLogin" to="ButtonLogin" method="_on_pressed"]
-[connection signal="pressed" from="ButtonBack" to="ButtonBack" method="_on_pressed" flags=18]
+[connection signal="text_changed" from="LineEditUsername" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="LineEditPassword" to="." method="_on_line_edit_text_changed"]
+[connection signal="pressed" from="ButtonLogin" to="." method="_on_button_login_pressed"]
+[connection signal="pressed" from="ButtonBack" to="." method="_on_button_back_pressed"]
