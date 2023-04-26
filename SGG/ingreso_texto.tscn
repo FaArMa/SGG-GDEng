@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://bo6khh3kvav5o"]
+
+[ext_resource type="Script" path="res://ingreso_texto.gd" id="1_equq0"]
+
+[node name="Ventana_Ingreso_Texto" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_equq0")
+
+[node name="Window" type="Window" parent="."]
+title = "Ingreso de Texto"
+position = Vector2i(445, 224)
+size = Vector2i(300, 150)
+transient = true
+exclusive = true
+popup_window = true
+min_size = Vector2i(300, 150)
+
+[node name="ColorRect" type="ColorRect" parent="Window"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25098, 0.345098, 0.333333, 0.32549)
+
+[node name="TextEdit" type="TextEdit" parent="Window"]
+custom_minimum_size = Vector2(250, 35)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -40.0
+offset_right = 125.0
+offset_bottom = -4.99951
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Escriba aquí..."
+
+[node name="Button" type="Button" parent="Window"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -60.0
+offset_right = 50.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Aceptar"
+
+[connection signal="close_requested" from="Window" to="." method="_on_window_close_requested"]
+[connection signal="pressed" from="Window/Button" to="." method="_on_button_pressed"]

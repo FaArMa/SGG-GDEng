@@ -1,0 +1,90 @@
+[gd_scene load_steps=3 format=3 uid="uid://by3w0a8ko1ux6"]
+
+[ext_resource type="Script" path="res://ui.gd" id="1_v3m0a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4w3tc"]
+size = Vector2(874.5, 600.5)
+
+[node name="UI" type="Node2D"]
+script = ExtResource("1_v3m0a")
+
+[node name="MenuBar" type="MenuBar" parent="."]
+layout_direction = 2
+
+[node name="MenuButton" type="MenuButton" parent="MenuBar"]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 31.0
+text = "botón1"
+item_count = 3
+popup/item_0/text = "item1"
+popup/item_0/id = 0
+popup/item_1/text = "item2"
+popup/item_1/id = 1
+popup/item_2/text = "item3"
+popup/item_2/id = 2
+
+[node name="MenuButton2" type="MenuButton" parent="MenuBar"]
+layout_mode = 0
+offset_left = 68.0
+offset_right = 132.0
+offset_bottom = 31.0
+text = "Configuración"
+item_count = 2
+popup/item_0/text = "Editar Mesas"
+popup/item_0/id = 0
+popup/item_1/text = "item2"
+popup/item_1/id = 1
+
+[node name="menu_edicion" type="VBoxContainer" parent="."]
+visible = false
+offset_left = 896.0
+offset_top = 42.0
+offset_right = 1126.0
+offset_bottom = 648.0
+theme_override_constants/separation = 10
+
+[node name="agregar_mesa" type="Button" parent="menu_edicion"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+text = "Agregar Mesa"
+
+[node name="quitar_mesa" type="Button" parent="menu_edicion"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+text = "Quitar Mesa"
+
+[node name="modificar_pared" type="Button" parent="menu_edicion"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+text = "Modificar Paredes"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="menu_edicion"]
+custom_minimum_size = Vector2(0, 350)
+layout_mode = 2
+alignment = 2
+
+[node name="boton_salir" type="Button" parent="menu_edicion/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+text = "Salir"
+
+[node name="Area_Edicion_Mesas" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area_Edicion_Mesas"]
+position = Vector2(446.75, 334.75)
+shape = SubResource("RectangleShape2D_4w3tc")
+
+[node name="Color_Edicion_Mesas" type="ColorRect" parent="Area_Edicion_Mesas"]
+visible = false
+offset_left = 16.0
+offset_top = 40.0
+offset_right = 880.0
+offset_bottom = 632.0
+mouse_filter = 1
+color = Color(0, 0.52549, 0.647059, 0.207843)
+
+[connection signal="pressed" from="menu_edicion/agregar_mesa" to="." method="_on_agregar_mesa_pressed"]
+[connection signal="pressed" from="menu_edicion/VBoxContainer/boton_salir" to="." method="_on_boton_salir_pressed"]
+[connection signal="input_event" from="Area_Edicion_Mesas" to="." method="_on_area_edicion_mesas_input_event"]
