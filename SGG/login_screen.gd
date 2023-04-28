@@ -2,18 +2,15 @@ extends Control
 
 
 @onready var DB = Database.new()
-@onready var usr = $LineEditUsername
-@onready var pwd = $LineEditPassword
-@onready var error_label = $LabelIncorrectUsrPwd
-@onready var login_button = $ButtonLogin
+@onready var usr = $Username
+@onready var pwd = $Password
+@onready var error_label = $Incorrect
+@onready var login_button = $Login
 
 
 func _ready():
-	# XXX Esto debería ir en una escena global así afecta a todos
-	DisplayServer.window_set_min_size(Vector2i(1280, 720), 0)
-	DisplayServer.window_set_size(Vector2i(1280, 720), 0)
 	# Al darle el foco se puede manejar con teclado sin necesidad de hacer clic antes
-	$LineEditUsername.grab_focus()
+	usr.grab_focus()
 
 
 func _on_button_login_pressed():

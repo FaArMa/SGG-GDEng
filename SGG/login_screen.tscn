@@ -11,7 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_i1vbh")
 
-[node name="PanelBackground" type="Panel" parent="."]
+[node name="Background" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +19,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LabelTitle" type="Label" parent="."]
+[node name="Title" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -33,7 +33,7 @@ text = "Sistema de Gestión Gastronomico"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LineEditUsername" type="LineEdit" parent="."]
+[node name="Username" type="LineEdit" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -45,7 +45,7 @@ offset_bottom = 192.0
 grow_horizontal = 2
 placeholder_text = "Usuario..."
 
-[node name="LineEditPassword" type="LineEdit" parent="."]
+[node name="Password" type="LineEdit" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -58,7 +58,7 @@ grow_horizontal = 2
 placeholder_text = "Contraseña..."
 secret = true
 
-[node name="LabelIncorrectUsrPwd" type="Label" parent="."]
+[node name="Incorrect" type="Label" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 5
@@ -73,7 +73,7 @@ theme_override_colors/font_color = Color(1, 0, 0, 1)
 text = "Datos incorrectos"
 vertical_alignment = 1
 
-[node name="ButtonLogin" type="Button" parent="."]
+[node name="Login" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -85,7 +85,7 @@ offset_bottom = 368.0
 grow_horizontal = 2
 text = "Iniciar Sesión"
 
-[node name="ButtonBack" type="Button" parent="."]
+[node name="Back" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -97,7 +97,7 @@ offset_bottom = 448.0
 grow_horizontal = 2
 text = "Volver"
 
-[connection signal="text_changed" from="LineEditUsername" to="." method="_on_line_edit_text_changed"]
-[connection signal="text_changed" from="LineEditPassword" to="." method="_on_line_edit_text_changed"]
-[connection signal="pressed" from="ButtonLogin" to="." method="_on_button_login_pressed"]
-[connection signal="pressed" from="ButtonBack" to="." method="_on_button_back_pressed"]
+[connection signal="text_changed" from="Username" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="Password" to="." method="_on_line_edit_text_changed"]
+[connection signal="pressed" from="Login" to="." method="_on_button_login_pressed"]
+[connection signal="pressed" from="Back" to="." method="_on_button_back_pressed"]
