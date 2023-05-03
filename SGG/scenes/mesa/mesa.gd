@@ -1,8 +1,8 @@
 extends Node2D
 
-@onready var mesa_libre = preload("res://iconos/mesa_libre.png")
-@onready var mesa_seleccionada = preload("res://iconos/mesa_seleccionada.png")
-@onready var mesa_ocupada = preload("res://iconos/mesa_ocupada.png")
+@onready var mesa_libre = preload("res://scenes/mesa/mesa_libre.png")
+@onready var mesa_seleccionada = preload("res://scenes/mesa/mesa_seleccionada.png")
+@onready var mesa_ocupada = preload("res://scenes/mesa/mesa_ocupada.png")
 @onready var nombre_mesa
 
 func init(_pos: Vector2, _nom: String):

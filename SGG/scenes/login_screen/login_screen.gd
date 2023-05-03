@@ -37,4 +37,4 @@ func _on_line_edit_text_changed(_new_text):
 
 
 func _on_button_back_pressed():
-	get_tree().change_scene_to_file("res://initial_screen.tscn")
+	get_tree().change_scene_to_file("res://scenes/initial_screen/initial_screen.tscn")

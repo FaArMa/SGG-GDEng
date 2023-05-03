@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var Mesa = preload("res://mesa.tscn")
-@onready var Ingreso_Texto = preload("res://ingreso_texto.tscn")
+@onready var Mesa = preload("res://scenes/mesa/mesa.tscn")
+@onready var Ingreso_Texto = preload("res://scenes/ingreso_texto/ingreso_texto.tscn")
 @onready var editar_mesas = false
 @onready var ubicacion_mesas = {}
 

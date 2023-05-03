@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d3apldec8kyed"
-path="res://.godot/imported/mesa_seleccionada.png-dea61ad04c47d1795fb25aa93722771e.ctex"
+path="res://.godot/imported/mesa_seleccionada.png-904392662152a42c4d5ff9e80d858f57.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://iconos/mesa_seleccionada.png"
-dest_files=["res://.godot/imported/mesa_seleccionada.png-dea61ad04c47d1795fb25aa93722771e.ctex"]
+source_file="res://scenes/mesa/mesa_seleccionada.png"
+dest_files=["res://.godot/imported/mesa_seleccionada.png-904392662152a42c4d5ff9e80d858f57.ctex"]
 
 [params]
 

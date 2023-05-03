@@ -1,18 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkrnbqfrf5rl7"]
+[gd_scene load_steps=4 format=3 uid="uid://2mcug0ykb2dd"]
 
-[ext_resource type="Script" path="res://mesa.gd" id="1_o2etu"]
-[ext_resource type="Texture2D" uid="uid://cso5vi0e6bhg8" path="res://iconos/mesa_libre.png" id="2_bktff"]
+[ext_resource type="Script" path="res://scenes/mesa/mesa.gd" id="1_dwrcf"]
+[ext_resource type="Texture2D" uid="uid://cso5vi0e6bhg8" path="res://scenes/mesa/mesa_libre.png" id="2_7phsp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t4c4p"]
 size = Vector2(1.95703, 1.87891)
 
 [node name="Mesa" type="Node2D"]
-script = ExtResource("1_o2etu")
+script = ExtResource("1_dwrcf")
 
 [node name="Area_Mesa" type="Area2D" parent="."]
 
 [node name="Icono_Mesa" type="Sprite2D" parent="Area_Mesa"]
-texture = ExtResource("2_bktff")
+texture = ExtResource("2_7phsp")
 
 [node name="Texto_Mesa" type="Label" parent="Area_Mesa/Icono_Mesa"]
 offset_left = -24.0

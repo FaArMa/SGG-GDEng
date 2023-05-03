@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cby3os2glkdab"]
+[gd_scene load_steps=2 format=3 uid="uid://vhfpvr12ph4p"]
 
-[ext_resource type="Script" path="res://initial_screen.gd" id="1_qlhwa"]
+[ext_resource type="Script" path="res://scenes/initial_screen/initial_screen.gd" id="1_qlhwa"]
 
 [node name="InitialScreen" type="Control"]
 layout_mode = 3

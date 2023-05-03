@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bo6khh3kvav5o"]
+[gd_scene load_steps=2 format=3 uid="uid://boualhj1l1thd"]
 
-[ext_resource type="Script" path="res://ingreso_texto.gd" id="1_equq0"]
+[ext_resource type="Script" path="res://scenes/ingreso_texto/ingreso_texto.gd" id="1_qlkig"]
 
 [node name="Ventana_Ingreso_Texto" type="Control"]
 layout_mode = 3
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_equq0")
+script = ExtResource("1_qlkig")
 
 [node name="Window" type="Window" parent="."]
 title = "Ingreso de Texto"

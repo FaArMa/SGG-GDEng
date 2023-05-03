@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c454opooq43ue"
-path="res://.godot/imported/mesa_ocupada.png-3119df67211cb31e1884a5900b883137.ctex"
+uid="uid://cso5vi0e6bhg8"
+path="res://.godot/imported/mesa_libre.png-5d300e4dce9de92800efb7dce91126e1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://iconos/mesa_ocupada.png"
-dest_files=["res://.godot/imported/mesa_ocupada.png-3119df67211cb31e1884a5900b883137.ctex"]
+source_file="res://scenes/mesa/mesa_libre.png"
+dest_files=["res://.godot/imported/mesa_libre.png-5d300e4dce9de92800efb7dce91126e1.ctex"]
 
 [params]
 
