@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1q2jgm825k13"]
+
+[ext_resource type="Script" path="res://scenes/mesa/table_scene.gd" id="1_5ydq1"]
+[ext_resource type="Texture2D" uid="uid://bq8g071ssaclk" path="res://scenes/mesa/mesa_libre.png" id="2_pqcdc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t4c4p"]
+size = Vector2(1.95703, 1.87891)
+
+[node name="Table_Scene" type="Node2D"]
+script = ExtResource("1_5ydq1")
+
+[node name="Table_Area" type="Area2D" parent="."]
+
+[node name="Table_Area_Collision" type="CollisionShape2D" parent="Table_Area"]
+scale = Vector2(24, 24)
+shape = SubResource("RectangleShape2D_t4c4p")
+
+[node name="Table_Icon" type="Sprite2D" parent="."]
+texture = ExtResource("2_pqcdc")
+
+[node name="Table_Text" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="input_event" from="Table_Area" to="." method="_on_area_mesa_input_event"]

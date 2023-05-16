@@ -1,17 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdpdec5hahkc4"]
+[gd_scene load_steps=3 format=3 uid="uid://b3e5jy8ql3web"]
 
-[ext_resource type="Script" path="res://scenes/sistema.gd" id="1_ca3ry"]
-[ext_resource type="PackedScene" uid="uid://ctqwujkn4gl1l" path="res://scenes/ui/ui.tscn" id="1_e44kg"]
-[ext_resource type="PackedScene" uid="uid://vhfpvr12ph4p" path="res://scenes/initial_screen/initial_screen.tscn" id="3_82pk7"]
-[ext_resource type="PackedScene" uid="uid://dolpxigkk7qxm" path="res://scenes/login_screen/login_screen.tscn" id="4_4em3i"]
+[ext_resource type="Script" path="res://scenes/sistema.gd" id="1_yidh7"]
+[ext_resource type="PackedScene" uid="uid://ctqwujkn4gl1l" path="res://scenes/ui/ui.tscn" id="2_35sdq"]
 
 [node name="Sistema" type="Node"]
-script = ExtResource("1_ca3ry")
+script = ExtResource("1_yidh7")
 
-[node name="UI" parent="." instance=ExtResource("1_e44kg")]
-
-[node name="InitialScreen" parent="." instance=ExtResource("3_82pk7")]
-visible = false
-
-[node name="LoginScreen" parent="." instance=ExtResource("4_4em3i")]
-visible = false
+[node name="UI" parent="." instance=ExtResource("2_35sdq")]

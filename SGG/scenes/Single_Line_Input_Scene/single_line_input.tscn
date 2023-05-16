@@ -1,26 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://boualhj1l1thd"]
+[gd_scene load_steps=2 format=3 uid="uid://b16imq6v616fx"]
 
-[ext_resource type="Script" path="res://scenes/ingreso_texto/ingreso_texto.gd" id="1_qlkig"]
+[ext_resource type="Script" path="res://scenes/Single_Line_Input_Scene/single_line_input.gd" id="1_x5jxe"]
 
-[node name="Ventana_Ingreso_Texto" type="Control"]
+[node name="Single_Line_Input_Scene" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_qlkig")
+script = ExtResource("1_x5jxe")
 
-[node name="Window" type="Window" parent="."]
+[node name="Dialog_Window" type="Window" parent="."]
 title = "Ingreso de Texto"
 position = Vector2i(445, 224)
 size = Vector2i(300, 150)
 transient = true
 exclusive = true
+unresizable = true
 popup_window = true
 min_size = Vector2i(300, 150)
 
-[node name="ColorRect" type="ColorRect" parent="Window"]
+[node name="Background" type="ColorRect" parent="Dialog_Window"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -28,22 +29,24 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.25098, 0.345098, 0.333333, 0.32549)
 
-[node name="TextEdit" type="TextEdit" parent="Window"]
-custom_minimum_size = Vector2(250, 35)
+[node name="Input" type="LineEdit" parent="Dialog_Window"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -125.0
-offset_top = -40.0
+offset_top = -39.0
 offset_right = 125.0
-offset_bottom = -4.99951
+offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
 placeholder_text = "Escriba aquí..."
+max_length = 4
+context_menu_enabled = false
+caret_blink = true
 
-[node name="Button" type="Button" parent="Window"]
+[node name="Accept_Button" type="Button" parent="Dialog_Window"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -57,5 +60,5 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Aceptar"
 
-[connection signal="close_requested" from="Window" to="." method="_on_window_close_requested"]
-[connection signal="pressed" from="Window/Button" to="." method="_on_button_pressed"]
+[connection signal="close_requested" from="Dialog_Window" to="." method="_on_dialog_window_close_requested"]
+[connection signal="pressed" from="Dialog_Window/Accept_Button" to="." method="_on_accept_button_pressed"]

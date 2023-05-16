@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdx335i1yfuvn"]
+
+[ext_resource type="Script" path="res://scenes/Seating_Scene/seating_scene.gd" id="1_exicm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vbebl"]
+size = Vector2(905.75, 605.75)
+
+[node name="Seating_Scene" type="Node2D"]
+script = ExtResource("1_exicm")
+
+[node name="Seating_Area" type="Area2D" parent="."]
+
+[node name="Seating_Area_Collision" type="CollisionShape2D" parent="Seating_Area"]
+position = Vector2(464, 336)
+shape = SubResource("RectangleShape2D_vbebl")
+
+[node name="Seating_Area_Background" type="ColorRect" parent="Seating_Area"]
+visible = false
+offset_left = 11.0
+offset_top = 33.0
+offset_right = 917.0
+offset_bottom = 639.0
+mouse_filter = 1
+color = Color(0, 0.580392, 0.803922, 0.431373)
+
+[connection signal="input_event" from="Seating_Area" to="." method="_on_seating_area_input_event"]

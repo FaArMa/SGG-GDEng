@@ -3,9 +3,9 @@ class_name Database
 
 
 # Variables de ejemplo hasta tener MySQL
-var test_usr: String = "Test"
-var test_pwd: String = "123"
-var test_rol: String = "Dueño"
+var test_user: String = "Test"
+var test_password: String = "123"
+var test_role: String = "Dueño"
 
 
 # XXX Dudo que lo necesitemos, pero viene bien para asegurar que tenemos una sola instancia
@@ -22,11 +22,11 @@ func _notification(what):
 
 # Verificar con la base de datos si el usuario y contraseña son correctos
 # TODO Crear la conexión y consulta, ya que la base de datos me dirá si son correctos o no
-func is_valid_usr_pwd(usr: String, pwd: String) -> bool:
-	return (usr == test_usr && pwd == test_pwd)
+func is_valid_user_password(_user: String, _password: String) -> bool:
+	return (_user == test_user && _password == test_password)
 
 
 # Obtener el rol del usuario en la base de datos
 # TODO Crear la conexión y consulta, ya que la base de datos me dirá el rol
-func get_usr_role(usr: String) -> String:
-	return test_rol
+func get_user_role(_user: String) -> String:
+	return test_role

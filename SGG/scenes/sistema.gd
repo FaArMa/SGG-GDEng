@@ -1,5 +1,7 @@
 extends Node
 
+const MIN_WINDOW_SIZE = Vector2i(1280,720)
+
 func _ready():
-	DisplayServer.window_set_min_size (Vector2i(1280, 720), 0)
-	DisplayServer.window_set_size (Vector2i(1280, 720), 0)
+	DisplayServer.window_set_min_size(MIN_WINDOW_SIZE)
+	#$Seating_Scene/Seating_Area.set_size(Vector2(MIN_WINDOW_SIZE))

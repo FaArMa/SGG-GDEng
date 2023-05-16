@@ -1,30 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctqwujkn4gl1l"]
+[gd_scene load_steps=4 format=3 uid="uid://ctqwujkn4gl1l"]
 
 [ext_resource type="Script" path="res://scenes/ui/ui.gd" id="1_v3m0a"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4w3tc"]
-size = Vector2(874.5, 600.5)
+[ext_resource type="PackedScene" uid="uid://bdx335i1yfuvn" path="res://scenes/Seating_Scene/seating_scene.tscn" id="2_8qasa"]
+[ext_resource type="ButtonGroup" uid="uid://3sre806mc20u" path="res://scenes/ui/Side_Menu_Button_Group.tres" id="2_ygdbk"]
 
 [node name="UI" type="Node2D"]
 script = ExtResource("1_v3m0a")
 
-[node name="MenuBar" type="MenuBar" parent="."]
+[node name="Main_Menu" type="MenuBar" parent="."]
 layout_direction = 2
 
-[node name="MenuButton" type="MenuButton" parent="MenuBar"]
-layout_mode = 0
-offset_right = 64.0
-offset_bottom = 31.0
-text = "botón1"
-item_count = 3
-popup/item_0/text = "item1"
-popup/item_0/id = 0
-popup/item_1/text = "item2"
-popup/item_1/id = 1
-popup/item_2/text = "item3"
-popup/item_2/id = 2
-
-[node name="MenuButton2" type="MenuButton" parent="MenuBar"]
+[node name="Main_Menu_Config" type="MenuButton" parent="Main_Menu"]
 layout_mode = 0
 offset_left = 68.0
 offset_right = 132.0
@@ -36,7 +22,7 @@ popup/item_0/id = 0
 popup/item_1/text = "item2"
 popup/item_1/id = 1
 
-[node name="menu_edicion" type="VBoxContainer" parent="."]
+[node name="Side_Menu" type="VBoxContainer" parent="."]
 visible = false
 offset_left = 896.0
 offset_top = 42.0
@@ -44,46 +30,40 @@ offset_right = 1126.0
 offset_bottom = 648.0
 theme_override_constants/separation = 10
 
-[node name="agregar_mesa" type="Button" parent="menu_edicion"]
+[node name="Add_Table" type="Button" parent="Side_Menu"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("2_ygdbk")
 text = "Agregar Mesa"
 
-[node name="quitar_mesa" type="Button" parent="menu_edicion"]
+[node name="Remove_Table" type="Button" parent="Side_Menu"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("2_ygdbk")
 text = "Quitar Mesa"
 
-[node name="modificar_pared" type="Button" parent="menu_edicion"]
+[node name="Modify_Table" type="Button" parent="Side_Menu"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("2_ygdbk")
 text = "Modificar Paredes"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="menu_edicion"]
+[node name="Side_Menu_Extra" type="VBoxContainer" parent="Side_Menu"]
 custom_minimum_size = Vector2(0, 350)
 layout_mode = 2
 alignment = 2
 
-[node name="boton_salir" type="Button" parent="menu_edicion/VBoxContainer"]
+[node name="Exit_Button" type="Button" parent="Side_Menu/Side_Menu_Extra"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 text = "Salir"
 
-[node name="Area_Edicion_Mesas" type="Area2D" parent="."]
+[node name="Seating_Scene" parent="." instance=ExtResource("2_8qasa")]
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area_Edicion_Mesas"]
-position = Vector2(446.75, 334.75)
-shape = SubResource("RectangleShape2D_4w3tc")
-
-[node name="Color_Edicion_Mesas" type="ColorRect" parent="Area_Edicion_Mesas"]
-offset_left = 16.0
-offset_top = 40.0
-offset_right = 880.0
-offset_bottom = 632.0
-mouse_filter = 1
-color = Color(0, 0.52549, 0.647059, 0.207843)
-
-[connection signal="pressed" from="menu_edicion/agregar_mesa" to="." method="_on_agregar_mesa_pressed"]
-[connection signal="pressed" from="menu_edicion/VBoxContainer/boton_salir" to="." method="_on_boton_salir_pressed"]
-[connection signal="input_event" from="Area_Edicion_Mesas" to="." method="_on_area_edicion_mesas_input_event"]
+[connection signal="toggled" from="Side_Menu/Add_Table" to="." method="_on_add_table_toggled"]
+[connection signal="toggled" from="Side_Menu/Remove_Table" to="." method="_on_remove_table_toggled"]
+[connection signal="pressed" from="Side_Menu/Side_Menu_Extra/Exit_Button" to="." method="_on_exit_button_pressed"]
