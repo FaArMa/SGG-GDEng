@@ -1,11 +1,29 @@
 class_name Database
-# La clase se encargará de realizar las consultas a MySQL
+extends Node
+# La clase se encarga de enviar peticiones POST al SGG-Web y este se encarga de consultar con MySQL
 
 
-# Variables de ejemplo hasta tener MySQL
-var test_user: String = "Test"
-var test_password: String = "123"
-var test_role: String = "Dueño"
+signal response_users_count(count)
+signal response_user_role(user_role)
+signal response_user_credentials(are_valid_user_credentials)
+signal response_add_user(register_result)
+signal response_error(error_msg)
+
+
+# TODO La URL debería ser obtenida desde un archivo de texto
+const url: String = "http://localhost/SGG-Web/src/php/sgg_api.php"
+const headers: Array = ["Content-Type: application/x-www-form-urlencoded"]
+var data: Dictionary
+@onready var httpr: HTTPRequest = HTTPRequest.new()
+@onready var httpc: HTTPClient = HTTPClient.new()
+
+
+# Se ejecuta cuando el nodo entra en el árbol de escena por primera vez
+func _ready():
+	# HTTPRequest tiene que ser un nodo hijo de Node (y justo Database extiende de Node)
+	add_child(httpr)
+	httpr.timeout = 3.0
+	httpr.request_completed.connect(_on_httpr_request_completed)
 
 
 # XXX Dudo que lo necesitemos, pero viene bien para asegurar que tenemos una sola instancia
@@ -20,13 +38,105 @@ func _notification(what):
 		print("- Destructor de Database -")
 
 
-# Verificar con la base de datos si el usuario y contraseña son correctos
-# TODO Crear la conexión y consulta, ya que la base de datos me dirá si son correctos o no
-func is_valid_user_password(_user: String, _password: String) -> bool:
-	return (_user == test_user && _password == test_password)
+# Obtener la cantidad de usuarios registrados
+func get_users_count() -> void:
+	data = {"action": "get_users_count"}
+	var body = httpc.query_string_from_dict(data)
+	var result = httpr.request(url, headers, HTTPClient.METHOD_POST, body)
+	http_error_exists(httpr, result)
+	return
 
 
-# Obtener el rol del usuario en la base de datos
-# TODO Crear la conexión y consulta, ya que la base de datos me dirá el rol
-func get_user_role(_user: String) -> String:
-	return test_role
+# Obtener el rol del usuario
+func get_user_role(_user: String) -> void:
+	data = {"username": _user, "action": "get_user_role"}
+	var body = httpc.query_string_from_dict(data)
+	var result = httpr.request(url, headers, HTTPClient.METHOD_POST, body)
+	http_error_exists(httpr, result)
+	return
+
+
+# Verificar si el usuario y contraseña son correctos
+func is_valid_user_password(_user: String, _password: String) -> void:
+	data = {"username": _user, "password": _password, "action": "validate_user_credentials"}
+	var body = httpc.query_string_from_dict(data)
+	var result = httpr.request(url, headers, HTTPClient.METHOD_POST, body)
+	http_error_exists(httpr, result)
+	return
+
+
+# Registrar / Agregar un nuevo usuario
+func add_new_user(_name: String, _surname: String, _role: int, _username: String, _password: String) -> void:
+	data = {
+		"name": _name,
+		"surname": _surname,
+		"role": _role,
+		"username": _username,
+		"password": _password,
+		"action": "add_user"
+	}
+	var body = httpc.query_string_from_dict(data)
+	var result = httpr.request(url, headers, HTTPClient.METHOD_POST, body)
+	http_error_exists(httpr, result)
+	return
+
+
+# Se ejecuta siempre que se complete un HTTPRequest.request()
+func _on_httpr_request_completed(_result, _response_code, _headers, _body) -> void:
+	# Ya no hace falta la conexión y se cierra para poder reutilizar este HTTPClient
+	httpc.close()
+	# Hacer que _body sea texto y no una secuencia de bytes
+	_body = _body.get_string_from_utf8()
+	# DEBUG Solamente muestra todo lo que ha devuelto el servidor
+	#print("\n- Result: %s\n- Response code: %s\n- Headers: %s\n- Body: %s" % [_result, _response_code, _headers, _body])
+
+	# Determinar si hubo un error con el servidor
+	if (http_error_exists(httpc, _result, _response_code, _body)):
+		return
+
+	# Enviar la señal que corresponda
+	match data["action"]:
+		"get_users_count":
+			emit_signal("response_users_count", _body)
+		"get_user_role":
+			emit_signal("response_user_role", _body)
+		"validate_user_credentials":
+			emit_signal("response_user_credentials", _body)
+		"add_user":
+			emit_signal("response_add_user", _body)
+		_:
+			print("[ERROR] Action: No está definido o está vacío.")
+			emit_signal("response_error", "Action: No está definido o está vacío.")
+
+	# Todo se termino
+	return
+
+
+# Determinar si hubo un error con HTTPRequest o HTTPClient
+func http_error_exists(_http, _result, _response_code = null, _body = null) -> bool:
+	# Determinar si el HTTPRequest.request() tuvo un error
+	if (_http is HTTPRequest):
+		if (_result != OK):
+			print("[ERROR] Ha ocurrido un error en la petición HTTP: %s" % _result)
+			emit_signal("response_error", "Ha ocurrido un error en la petición HTTP: %s" % _result)
+			httpr.cancel_request()
+			httpc.close()
+			return true
+
+	# Determinar si el HTTPClient.request() tuvo un error
+	if (_http is HTTPClient):
+		# Si el servidor no responde...
+		if (_result != OK):
+			print("[ERROR] Ha ocurrido un error en la respuesta del servidor: %s" % _result)
+			emit_signal("response_error", "Ha ocurrido un error en la respuesta del servidor: %s" % _result)
+			return true
+
+		# Si el servidor responde pero no con el código esperado...
+		elif (_response_code != HTTPClient.RESPONSE_OK):
+			print("[ERROR] El servidor ha devuelto el siguiente estado de respuesta HTTP: %s - %s" % [_response_code, _body])
+			emit_signal("response_error", "El servidor ha devuelto el siguiente estado de respuesta HTTP: %s" % _response_code)
+			return true
+
+	# No hay ningun error
+	return false
+
