@@ -1,0 +1,152 @@
+[gd_scene load_steps=2 format=3 uid="uid://bru15uyya0o6r"]
+
+[ext_resource type="Script" path="res://scenes/register_screen/register_screen.gd" id="1_0iu26"]
+
+[node name="RegisterScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0iu26")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -131.0
+offset_top = 64.0
+offset_right = 131.0
+offset_bottom = 96.0
+grow_horizontal = 2
+text = "Sistema de Gestión Gastronomico"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Name" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -408.0
+offset_top = 160.0
+offset_right = -146.0
+offset_bottom = 192.0
+grow_horizontal = 2
+placeholder_text = "Nombre..."
+editable = false
+
+[node name="Surname" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -130.0
+offset_top = 160.0
+offset_right = 132.0
+offset_bottom = 192.0
+grow_horizontal = 2
+placeholder_text = "Apellido..."
+editable = false
+
+[node name="Role" type="OptionButton" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 144.0
+offset_top = 160.0
+offset_right = 406.0
+offset_bottom = 192.0
+grow_horizontal = 2
+disabled = true
+item_count = 2
+selected = 0
+popup/item_0/text = "Dueño"
+popup/item_0/id = 0
+popup/item_1/text = "Gerente"
+popup/item_1/id = 1
+
+[node name="Username" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -408.0
+offset_top = 208.0
+offset_right = -146.0
+offset_bottom = 240.0
+grow_horizontal = 2
+placeholder_text = "Usuario..."
+editable = false
+
+[node name="Password" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -130.0
+offset_top = 208.0
+offset_right = 132.0
+offset_bottom = 240.0
+grow_horizontal = 2
+placeholder_text = "Contraseña..."
+editable = false
+secret = true
+
+[node name="Incorrect" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -408.0
+offset_top = 256.0
+offset_right = 408.0
+offset_bottom = 288.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "Datos incorrectos"
+vertical_alignment = 1
+
+[node name="Register" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.0
+offset_top = 304.0
+offset_right = 96.0
+offset_bottom = 368.0
+grow_horizontal = 2
+disabled = true
+text = "Registrarse"
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.0
+offset_top = 384.0
+offset_right = 96.0
+offset_bottom = 448.0
+grow_horizontal = 2
+text = "Volver"
+
+[connection signal="text_changed" from="Name" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="Surname" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="Username" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="Password" to="." method="_on_line_edit_text_changed"]
+[connection signal="pressed" from="Register" to="." method="_on_register_pressed"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
