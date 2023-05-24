@@ -4,8 +4,6 @@ const TABLE_FREE = preload("res://scenes/mesa/mesa_libre.png")
 const TABLE_SELECTED = preload("res://scenes/mesa/mesa_seleccionada.png")
 const TABLE_OCCUPIED = preload("res://scenes/mesa/mesa_ocupada.png")
 
-@onready var delete_mode: bool = false
-
 signal table_clicked(table)
 
 var table_is_open = false

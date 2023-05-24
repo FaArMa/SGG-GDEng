@@ -1,5 +1,6 @@
 extends Control
 
+signal switched_to_initial
 
 @onready var DB = Database.new()
 @onready var nam = $Name
@@ -50,7 +51,7 @@ func _on_register_pressed():
 
 # Se ejecuta cuando se presiona el boton Back
 func _on_back_pressed():
-	get_tree().change_scene_to_file("res://scenes/initial_screen/initial_screen.tscn")
+	emit_signal("switched_to_initial")
 
 
 # Se ejecuta cuando Database envia su señal de get_users_count

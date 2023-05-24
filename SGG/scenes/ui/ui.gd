@@ -12,7 +12,7 @@ func _ready():
 func button_ID(id):
 	if id == 0:
 		toggle_node_visibility($Side_Menu)
-		toggle_node_visibility($Seating_Scene)
+		#toggle_node_visibility($Seating_Scene)
 
 func toggle_node_visibility(node: Node):
 	if not node.is_visible():

@@ -21,6 +21,6 @@ offset_top = 33.0
 offset_right = 917.0
 offset_bottom = 639.0
 mouse_filter = 1
-color = Color(0, 0.580392, 0.803922, 0.431373)
+color = Color(0, 0.580392, 0.803922, 0.196078)
 
 [connection signal="input_event" from="Seating_Area" to="." method="_on_seating_area_input_event"]

@@ -62,7 +62,6 @@ layout_mode = 2
 text = "Salir"
 
 [node name="Seating_Scene" parent="." instance=ExtResource("2_8qasa")]
-visible = false
 
 [connection signal="toggled" from="Side_Menu/Add_Table" to="." method="_on_add_table_toggled"]
 [connection signal="toggled" from="Side_Menu/Remove_Table" to="." method="_on_remove_table_toggled"]

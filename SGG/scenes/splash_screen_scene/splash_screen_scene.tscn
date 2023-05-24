@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bn8fd6e5x1jy4"]
+
+[ext_resource type="PackedScene" uid="uid://vhfpvr12ph4p" path="res://scenes/initial_screen/initial_screen.tscn" id="1_0lg4b"]
+[ext_resource type="Script" path="res://scenes/splash_screen_scene/splash_screen_scene.gd" id="1_ssvg7"]
+[ext_resource type="PackedScene" uid="uid://dolpxigkk7qxm" path="res://scenes/login_screen/login_screen.tscn" id="2_r8yr0"]
+[ext_resource type="PackedScene" uid="uid://bru15uyya0o6r" path="res://scenes/register_screen/register_screen.tscn" id="4_c5e61"]
+
+[node name="Splash_Screen_Scene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ssvg7")
+
+[node name="InitialScreen" parent="." instance=ExtResource("1_0lg4b")]
+layout_mode = 1
+
+[node name="LoginScreen" parent="." instance=ExtResource("2_r8yr0")]
+visible = false
+layout_mode = 1
+
+[node name="RegisterScreen" parent="." instance=ExtResource("4_c5e61")]
+visible = false
+layout_mode = 1

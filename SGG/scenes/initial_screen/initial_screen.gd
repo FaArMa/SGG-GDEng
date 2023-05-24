@@ -1,5 +1,7 @@
 extends Control
 
+signal switched_to_login
+signal switched_to_register
 
 @onready var DB = Database.new()
 @onready var login_button = $Login
@@ -23,17 +25,16 @@ func _ready():
 
 # Se ejecuta cuando se presiona el boton Login
 func _on_login_pressed():
-	get_tree().change_scene_to_file("res://scenes/login_screen/login_screen.tscn")
-
+	emit_signal("switched_to_login")
 
 # Se ejecuta cuando se presiona el boton Register
 func _on_register_pressed():
-	get_tree().change_scene_to_file("res://scenes/register_screen/register_screen.tscn")
+	emit_signal("switched_to_register")
 
 
 # Se ejecuta cuando se presiona el boton Quit
 func _on_quit_pressed():
-	get_tree().quit()
+	get_tree().get_root().propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 
 
 # Se ejecuta cuando Database envia su señal de get_users_count
