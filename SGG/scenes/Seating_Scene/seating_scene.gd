@@ -5,9 +5,15 @@ extends Node2D
 @onready var tables: Dictionary = {}
 @onready var table_add_mode: bool = false
 @onready var table_remove_mode: bool = false
-
 signal tables_edited
 
+func _ready():
+	EventBus.connect("tables_loaded", _on_tables_loaded)
+
+func _on_tables_loaded(_tables: Dictionary):
+	for i in _tables.values():
+		add_table_to_seating_area(i[0], i[1])
+	
 func _on_seating_area_input_event(_viewport, event, _shape_idx):
 	if table_add_mode:
 		if event.is_action_pressed("left_click"):
@@ -25,10 +31,11 @@ func _on_single_line_input_submit(text_input: String, pos: Vector2):
 			print(i[0], ", ", i[1], "text_input: ", text_input)
 			if i[0] == text_input:
 				repeated_table_name = true
-	if repeated_table_name:
-		print("Mesa ", text_input, " repetida. Inténtelo nuevamente.")
-	else:
-		add_table_to_seating_area(text_input, pos)
+		if repeated_table_name:
+			print("Mesa ", text_input, " repetida. Inténtelo nuevamente.")
+		else:
+			add_table_to_seating_area(text_input, pos)
+	EventBus.emit_signal("tables_modified", tables)
 	emit_signal("tables_edited")
 	
 	
@@ -51,5 +58,7 @@ func _on_remove_table_from_seating_area(table: Object):
 				tables.erase(table)
 				table.delete_table(table)
 		remove_child(table)
-		emit_signal("tables_edited")
 		print("removed ", tables)
+		EventBus.emit_signal("tables_modified", tables)
+		emit_signal("tables_edited")
+

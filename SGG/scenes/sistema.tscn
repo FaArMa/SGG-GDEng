@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3e5jy8ql3web"]
+[gd_scene load_steps=4 format=3 uid="uid://b3e5jy8ql3web"]
 
 [ext_resource type="Script" path="res://scenes/sistema.gd" id="1_yidh7"]
 [ext_resource type="PackedScene" uid="uid://ctqwujkn4gl1l" path="res://scenes/ui/ui.tscn" id="2_35sdq"]
+[ext_resource type="PackedScene" uid="uid://bn8fd6e5x1jy4" path="res://scenes/splash_screen_scene/splash_screen_scene.tscn" id="3_bgcht"]
 
 [node name="Sistema" type="Node"]
 script = ExtResource("1_yidh7")
 
 [node name="UI" parent="." instance=ExtResource("2_35sdq")]
+
+[node name="Splash_Screen_Scene" parent="." instance=ExtResource("3_bgcht")]
+visible = false
