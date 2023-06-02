@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdx335i1yfuvn"]
+[gd_scene load_steps=4 format=3 uid="uid://bdx335i1yfuvn"]
 
 [ext_resource type="Script" path="res://scenes/Seating_Scene/seating_scene.gd" id="1_exicm"]
+[ext_resource type="Texture2D" uid="uid://c2sy7j1iamh55" path="res://scenes/table_ghost.png" id="2_3xpt4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vbebl"]
 size = Vector2(905.75, 605.75)
@@ -22,5 +23,9 @@ offset_right = 917.0
 offset_bottom = 639.0
 mouse_filter = 1
 color = Color(0, 0.580392, 0.803922, 0.196078)
+
+[node name="Table_Ghost" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_3xpt4")
 
 [connection signal="input_event" from="Seating_Area" to="." method="_on_seating_area_input_event"]

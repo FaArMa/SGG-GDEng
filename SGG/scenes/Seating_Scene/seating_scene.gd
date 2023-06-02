@@ -1,64 +1,143 @@
 extends Node2D
 
-@onready var table_scene = preload("res://scenes/mesa/table_scene.tscn")
-@onready var single_line_input = preload("res://scenes/Single_Line_Input_Scene/single_line_input.tscn")
-@onready var tables: Dictionary = {}
-@onready var table_add_mode: bool = false
-@onready var table_remove_mode: bool = false
 signal tables_edited
 
-func _ready():
-	EventBus.connect("tables_loaded", _on_tables_loaded)
+@onready var table_scene = preload("res://scenes/mesa/table_scene.tscn")
+@onready var wall_scene = preload("res://scenes/wall_scene/wall_scene.tscn")
+@onready var single_line_input = preload("res://scenes/Single_Line_Input_Scene/single_line_input.tscn")
+@onready var tables: Dictionary = {}
+@onready var walls: Array = []
+@onready var table_add_mode: bool = false
+@onready var table_remove_mode: bool = false
+@onready var wall_edit_mode: bool = false
+@onready var wall_just_deleted: bool = false
+@onready var loading: bool = false
 
-func _on_tables_loaded(_tables: Dictionary):
-	for i in _tables.values():
-		add_table_to_seating_area(i[0], i[1])
-	
+
+func _ready():
+	load_objects()
+
+
 func _on_seating_area_input_event(_viewport, event, _shape_idx):
 	if table_add_mode:
+		$Table_Ghost.set_position(snap_position(event.position))
 		if event.is_action_pressed("left_click"):
+			$Table_Ghost.set_position(snap_position(event.position))
 			var input = single_line_input.instantiate()
-			input.text_submit.connect(_on_single_line_input_submit.bind(event.position))
-			input.text_discard.connect(_on_single_line_input_discard)
+			input.connect("text_submit", _on_single_line_input_submit.bind(snap_position(event.position)))
 			add_child(input)
+	if wall_edit_mode:
+		if !wall_just_deleted:
+			$Table_Ghost.set_position(snap_position(event.position))
+			if event.is_action_pressed("left_click"):
+				edit_walls_on_seating_area(snap_position(event.position))
+		wall_just_deleted = false
+
 
 func _on_single_line_input_submit(text_input: String, pos: Vector2):
-	var repeated_table_name = false
-	if tables.is_empty():
+	if is_position_valid(pos) and is_name_valid(text_input):
 		add_table_to_seating_area(text_input, pos)
-	else:
-		for i in tables.values():
-			print(i[0], ", ", i[1], "text_input: ", text_input)
-			if i[0] == text_input:
-				repeated_table_name = true
-		if repeated_table_name:
-			print("Mesa ", text_input, " repetida. Inténtelo nuevamente.")
-		else:
-			add_table_to_seating_area(text_input, pos)
-	EventBus.emit_signal("tables_modified", tables)
-	emit_signal("tables_edited")
-	
-	
-func _on_single_line_input_discard():
-	pass
+
+
+func is_name_valid(text_input: String) -> bool:
+	for i in tables.values():
+		if i[0] == text_input:
+			print("- Nombre de mesa inválido -")
+			return false
+	return true
+
+
+func is_position_valid(pos: Vector2) -> bool:
+	for i in walls.size():
+		if walls[i].wall_position == pos:
+			print("- Posición inválida -")
+			return false
+	for k in tables.values():
+		if k[1] == pos:
+			print("- Posición inválida -")
+			return false
+	return true
+
 
 func add_table_to_seating_area(text_input: String, pos: Vector2):
 	var new_table = table_scene.instantiate()
-	new_table.position = pos
-	new_table.table_name = text_input
-	new_table.table_clicked.connect(_on_remove_table_from_seating_area)
-	add_child(new_table)
-	tables[new_table] = [new_table.table_name, new_table.position]
-	print("added ", tables)
 
-func _on_remove_table_from_seating_area(table: Object):
-	if table_remove_mode:
-		for i in tables.keys():
-			if i == table:
-				tables.erase(table)
-				table.delete_table(table)
-		remove_child(table)
-		print("removed ", tables)
-		EventBus.emit_signal("tables_modified", tables)
+	new_table.position = pos
+	new_table.table_position = pos
+	new_table.table_name = text_input
+	new_table.connect("table_clicked", _on_remove_table_from_seating_area)
+	tables[new_table] = [new_table.table_name, new_table.table_position]
+	add_child(new_table)
+
+	if !loading:
+		save_objects()
 		emit_signal("tables_edited")
 
+	print("- Added ", tables)
+
+
+func edit_walls_on_seating_area(pos: Vector2):
+	if is_position_valid(pos):
+		add_wall_to_seating_area(pos)
+
+
+func add_wall_to_seating_area(pos: Vector2):
+	var new_wall = wall_scene.instantiate()
+
+	new_wall.wall_position = pos
+	new_wall.position = pos
+	new_wall.connect("wall_clicked", _on_remove_wall_from_seating_area)
+	walls.append(new_wall)
+	add_child(new_wall)
+
+	if !loading: save_objects()
+
+
+func _on_remove_table_from_seating_area(_table: Object):
+	if table_remove_mode:
+		tables.erase(_table)
+		_table.delete_table(_table)
+		remove_child(_table)
+		save_objects()
+		print("- Removed ", tables)
+		emit_signal("tables_edited")
+
+
+func _on_remove_wall_from_seating_area(_wall: Object):
+	if wall_edit_mode:
+		walls.erase(_wall)
+		_wall.delete_wall(_wall)
+		remove_child(_wall)
+		save_objects()
+		wall_just_deleted = true
+		print("- Pared Eliminada -")
+
+
+func snap_position(pos: Vector2) -> Vector2:
+	var snap_x = snapped(pos.x, 48)
+	var snap_y = snapped(pos.y, 48)
+	var snap := Vector2(snap_x, snap_y)
+	return snap
+
+
+func save_objects():
+	var objects = SessionSave.new()
+
+	objects.save_state(tables, walls)
+
+
+func load_objects():
+	loading = true
+
+	var objects = SessionSave.new()
+	var loaded_objects: Array
+
+	loaded_objects = objects.load_state(tables, walls)
+
+	for i in loaded_objects[0].values():
+		add_table_to_seating_area(i[0], i[1])
+
+	for i in loaded_objects[1].size():
+		add_wall_to_seating_area(loaded_objects[1][i].wall_position)
+
+	loading = false
