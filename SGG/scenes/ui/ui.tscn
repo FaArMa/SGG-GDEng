@@ -23,7 +23,6 @@ popup/item_1/text = "item2"
 popup/item_1/id = 1
 
 [node name="Side_Menu" type="VBoxContainer" parent="."]
-visible = false
 offset_left = 896.0
 offset_top = 42.0
 offset_right = 1126.0
@@ -44,7 +43,7 @@ toggle_mode = true
 button_group = ExtResource("2_ygdbk")
 text = "Quitar Mesa"
 
-[node name="Modify_Table" type="Button" parent="Side_Menu"]
+[node name="Modify_Wall" type="Button" parent="Side_Menu"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 toggle_mode = true
@@ -65,4 +64,5 @@ text = "Salir"
 
 [connection signal="toggled" from="Side_Menu/Add_Table" to="." method="_on_add_table_toggled"]
 [connection signal="toggled" from="Side_Menu/Remove_Table" to="." method="_on_remove_table_toggled"]
+[connection signal="toggled" from="Side_Menu/Modify_Wall" to="." method="_on_modify_wall_toggled"]
 [connection signal="pressed" from="Side_Menu/Side_Menu_Extra/Exit_Button" to="." method="_on_exit_button_pressed"]

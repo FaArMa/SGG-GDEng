@@ -33,9 +33,9 @@ func _init():
 
 # XXX Dudo que lo necesitemos, pero viene bien para asegurar que tenemos una sola instancia
 # O quizás finalizar la conexión
-func _notification(what):
-	if what == NOTIFICATION_PREDELETE:
-		print("- Destructor de Database -")
+#func _notification(what):
+#	if what == NOTIFICATION_PREDELETE:
+#		print("- Destructor de Database -")
 
 
 # Obtener la cantidad de usuarios registrados

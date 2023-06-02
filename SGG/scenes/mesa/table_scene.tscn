@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bq8g071ssaclk" path="res://scenes/mesa/mesa_libre.png" id="2_pqcdc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t4c4p"]
-size = Vector2(1.95703, 1.87891)
+size = Vector2(2, 2)
 
 [node name="Table_Scene" type="Node2D"]
 script = ExtResource("1_5ydq1")
@@ -12,6 +12,7 @@ script = ExtResource("1_5ydq1")
 [node name="Table_Area" type="Area2D" parent="."]
 
 [node name="Table_Area_Collision" type="CollisionShape2D" parent="Table_Area"]
+position = Vector2(7.15256e-07, -7.15256e-07)
 scale = Vector2(24, 24)
 shape = SubResource("RectangleShape2D_t4c4p")
 
