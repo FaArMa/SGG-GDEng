@@ -21,72 +21,53 @@ grow_vertical = 2
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -131.0
-offset_top = 64.0
-offset_right = 131.0
-offset_bottom = 96.0
+anchors_preset = -1
+offset_left = 376.0
+offset_top = 112.0
+offset_right = 902.0
+offset_bottom = 160.0
 grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
 text = "Sistema de Gestión Gastronomico"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Login" type="Button" parent="."]
+[node name="Button_Container" type="GridContainer" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -96.0
-offset_top = 160.0
-offset_right = 96.0
-offset_bottom = 224.0
+anchors_preset = -1
+offset_left = 515.0
+offset_top = 255.0
+offset_right = 765.0
+offset_bottom = 465.0
 grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/v_separation = 15
+
+[node name="Login" type="Button" parent="Button_Container"]
+custom_minimum_size = Vector2(250, 75)
+layout_mode = 2
 disabled = true
 text = "Iniciar Sesión"
 
-[node name="Register" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -96.0
-offset_top = 240.0
-offset_right = 96.0
-offset_bottom = 304.0
-grow_horizontal = 2
+[node name="Register" type="Button" parent="Button_Container"]
+custom_minimum_size = Vector2(250, 75)
+layout_mode = 2
 disabled = true
 text = "Registrarse"
-
-[node name="Quit" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -96.0
-offset_top = 320.0
-offset_right = 96.0
-offset_bottom = 384.0
-grow_horizontal = 2
-text = "Salir"
 
 [node name="Incorrect" type="Label" parent="."]
 visible = false
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -408.0
-offset_top = 408.0
-offset_right = 408.0
-offset_bottom = 440.0
+anchors_preset = -1
+offset_left = 232.0
+offset_top = 504.0
+offset_right = 1048.0
+offset_bottom = 536.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 text = "Datos incorrectos"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="Login" to="." method="_on_login_pressed"]
-[connection signal="pressed" from="Register" to="." method="_on_register_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Button_Container/Login" to="." method="_on_login_pressed"]
+[connection signal="pressed" from="Button_Container/Register" to="." method="_on_register_pressed"]

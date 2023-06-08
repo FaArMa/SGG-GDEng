@@ -1,13 +1,13 @@
 extends Control
 
-signal switched_to_initial
+signal register_screen_return
 
 @onready var DB = Database.new()
-@onready var nam = $Name
-@onready var sur = $Surname
-@onready var rol = $Role
-@onready var usr = $Username
-@onready var pwd = $Password
+@onready var nam = $Input_Container/Name
+@onready var sur = $Input_Container/Surname
+@onready var rol = $Input_Container/Role
+@onready var usr = $Input_Container/Username
+@onready var pwd = $Input_Container/Password
 @onready var error_label = $Incorrect
 @onready var register_button = $Register
 
@@ -51,7 +51,7 @@ func _on_register_pressed():
 
 # Se ejecuta cuando se presiona el boton Back
 func _on_back_pressed():
-	emit_signal("switched_to_initial")
+	emit_signal("register_screen_return")
 
 
 # Se ejecuta cuando Database envia su señal de get_users_count

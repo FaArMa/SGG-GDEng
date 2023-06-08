@@ -1,6 +1,6 @@
 extends Control
 
-signal switched_to_initial
+signal login_screen_return
 
 @onready var DB = Database.new()
 @onready var usr = $Username
@@ -42,7 +42,7 @@ func _on_line_edit_text_changed(_new_text):
 
 # Se ejecuta cuando se presiona el boton Back
 func _on_button_back_pressed():
-	emit_signal("switched_to_initial")
+	emit_signal("login_screen_return")
 
 
 # Se ejecuta cuando Database envia su señal de response_user_role

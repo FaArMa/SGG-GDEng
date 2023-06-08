@@ -4,8 +4,8 @@ signal switched_to_login
 signal switched_to_register
 
 @onready var DB = Database.new()
-@onready var login_button = $Login
-@onready var register_button = $Register
+@onready var login_button = $Button_Container/Login
+@onready var register_button = $Button_Container/Register
 @onready var error_label = $Incorrect
 
 
@@ -30,11 +30,6 @@ func _on_login_pressed():
 # Se ejecuta cuando se presiona el boton Register
 func _on_register_pressed():
 	emit_signal("switched_to_register")
-
-
-# Se ejecuta cuando se presiona el boton Quit
-func _on_quit_pressed():
-	get_tree().get_root().propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 
 
 # Se ejecuta cuando Database envia su señal de get_users_count
