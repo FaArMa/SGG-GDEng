@@ -1,0 +1,136 @@
+[gd_scene load_steps=8 format=3 uid="uid://c5hs6ybpclhvf"]
+
+[ext_resource type="Script" path="res://scenes/order_scene/order_scene_table.gd" id="1_djipj"]
+[ext_resource type="StyleBox" uid="uid://dbmwbya10rcvm" path="res://scenes/order_scene/selector_button_style.tres" id="2_megbi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oaxqi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ncbwi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w4hfc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xepgj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oe072"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[node name="OrderSceneTable" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -640.0
+offset_bottom = -472.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_djipj")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+offset_right = 640.0
+offset_bottom = 248.0
+
+[node name="HeaderBackground" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 24.0
+
+[node name="Amount" type="Label" parent="."]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 24.0
+theme_override_font_sizes/font_size = 14
+text = "Cantidad"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Product" type="Label" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_right = 512.0
+offset_bottom = 24.0
+theme_override_font_sizes/font_size = 14
+text = "Producto"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Price" type="Label" parent="."]
+layout_mode = 0
+offset_left = 512.0
+offset_right = 640.0
+offset_bottom = 24.0
+theme_override_font_sizes/font_size = 14
+text = "Precio"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+offset_top = 24.0
+offset_right = 640.0
+offset_bottom = 248.0
+
+[node name="Control" type="Control" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="GridSelector" type="GridContainer" parent="ScrollContainer/Control"]
+custom_minimum_size = Vector2(640, 224)
+layout_mode = 2
+offset_right = 640.0
+offset_bottom = 224.0
+theme_override_constants/h_separation = -1
+theme_override_constants/v_separation = -1
+
+[node name="SelectorButton0" type="Button" parent="ScrollContainer/Control/GridSelector"]
+visible = false
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_oaxqi")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ncbwi")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_w4hfc")
+theme_override_styles/disabled = ExtResource("2_megbi")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xepgj")
+
+[node name="GridRow" type="GridContainer" parent="ScrollContainer/Control"]
+custom_minimum_size = Vector2(640, 224)
+layout_mode = 2
+offset_right = 640.0
+offset_bottom = 224.0
+mouse_filter = 2
+theme_override_constants/h_separation = -1
+theme_override_constants/v_separation = -1
+columns = 3
+
+[node name="AmountLabel0" type="Label" parent="ScrollContainer/Control/GridRow"]
+visible = false
+custom_minimum_size = Vector2(128, 25)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_oe072")
+vertical_alignment = 1
+
+[node name="ProductLabel0" type="Label" parent="ScrollContainer/Control/GridRow"]
+visible = false
+custom_minimum_size = Vector2(384, 25)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_oe072")
+vertical_alignment = 1
+
+[node name="PriceLabel0" type="Label" parent="ScrollContainer/Control/GridRow"]
+visible = false
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_oe072")
+vertical_alignment = 1
