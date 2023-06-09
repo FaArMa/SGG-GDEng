@@ -13,28 +13,18 @@ signal response_error(error_msg)
 const headers: Array = ["Content-Type: application/x-www-form-urlencoded"]
 var url: String = OS.get_environment("API_URL")
 var data: Dictionary
-@onready var httpr: HTTPRequest = HTTPRequest.new()
-@onready var httpc: HTTPClient = HTTPClient.new()
+var httpr: HTTPRequest
+var httpc: HTTPClient
 
 
-# Se ejecuta cuando el nodo entra en el árbol de escena por primera vez
-func _ready():
+func _init():
+	print("- Constructor de Database -")
+	httpr = HTTPRequest.new()
+	httpc = HTTPClient.new()
 	# HTTPRequest tiene que ser un nodo hijo de Node (y justo Database extiende de Node)
 	add_child(httpr)
 	httpr.timeout = 3.0
 	httpr.request_completed.connect(_on_httpr_request_completed)
-
-
-# XXX Dudo que lo necesitemos, pero viene bien para asegurar que tenemos una sola instancia
-func _init():
-	print("- Constructor de Database -")
-
-
-# XXX Dudo que lo necesitemos, pero viene bien para asegurar que tenemos una sola instancia
-# O quizás finalizar la conexión
-#func _notification(what):
-#	if what == NOTIFICATION_PREDELETE:
-#		print("- Destructor de Database -")
 
 
 # Obtener la cantidad de usuarios registrados

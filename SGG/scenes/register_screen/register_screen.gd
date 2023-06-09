@@ -4,7 +4,7 @@ extends Control
 signal register_screen_return
 
 
-@onready var DB = Database.new()
+@onready var DB = EventBus.database
 @onready var nam = $Input_Container/Name
 @onready var sur = $Input_Container/Surname
 @onready var dni = $Input_Container/DNI
@@ -13,21 +13,15 @@ signal register_screen_return
 @onready var pwd = $Input_Container/Password
 @onready var error_label = $Incorrect
 @onready var register_button = $Register
+@onready var is_first_user: bool = true
 
 
 # Se ejecuta cuando el nodo entra en el árbol de escena por primera vez
 func _ready():
-	# Agregar DB como nodo hijo de RegisterScreen para luego conectar con sus señales
-	add_child(DB)
+	# Conectar con las señales de Database
 	DB.connect("response_users_count", _on_get_users_count)
 	DB.connect("response_add_user", _on_response_add_user)
 	DB.connect("response_error", _on_response_error)
-	# ¿Hay usuarios? entonces sos un Dueño y vas a "Agregar usuario"
-	# ¿No hay usuarios? entonces sos el primero (automaticamente Dueño) y vas a "Registrarte"
-	# ¿Hubo un error? F en el chat
-	DB.get_users_count()
-	# Al darle el foco se puede manejar con teclado sin necesidad de hacer clic antes
-	nam.grab_focus()
 
 
 # Se ejecuta cuando el texto de Name / Surname / DNI / Username / Password cambia
@@ -67,6 +61,8 @@ func _on_back_pressed():
 
 # Se ejecuta cuando Database envia su señal de get_users_count
 func _on_get_users_count(count):
+	if (!self.is_visible()):
+		return
 	if (!count.is_valid_int() || count.to_int() < 0):
 		print("[ERROR] La cantidad de usuarios registrados no es un número válido: %s" % count)
 		error_label.text = "La cantidad de usuarios registrados no es un número válido"
@@ -80,26 +76,34 @@ func _on_get_users_count(count):
 	if (count.to_int() > 0):
 		rol.disabled = false
 		register_button.text = "Agregar usuario"
-		# TODO Se tiene que cambiar la funcionalidad del botón "Agregar usuario"
-		# 1. No debe cambiar de escena tras agregar correctamente.
-		# 2. Debe vaciar todos los campos así se agregará un usuario nuevo.
+		is_first_user = false
 	else:
 		rol.disabled = true
+		is_first_user = true
+	nam.grab_focus()
 
 
 # Se ejecuta cuando Database envia su señal de response_add_user
 func _on_response_add_user(register_result):
+	if (!self.is_visible()):
+		return
 	if (register_result.is_empty()):
 		print("[ERROR] Error al agregar usuario")
 		error_label.text = "Error al agregar usuario"
 		error_label.visible = true
 	else:
 		print("[OK] Usuario agregado correctamente")
-		get_tree().change_scene_to_file("res://scenes/ui/ui.tscn")
+		if (is_first_user):
+			get_tree().change_scene_to_file("res://scenes/ui/ui.tscn")
+		else:
+			clear_input_data()
+			nam.grab_focus()
 
 
 # Se ejecuta cuando Database envia su señal de response_error
 func _on_response_error(error_msg):
+	if (!self.is_visible()):
+		return
 	error_label.text = error_msg
 	error_label.visible = true
 
@@ -112,4 +116,21 @@ func generate_username(_nam: String, _sur: String) -> String:
 # Devuelve una contraseña conformada por los últimos 4 dígitos del DNI
 func generate_password(_dni: String) -> String:
 	return _dni.substr(_dni.length() - 4, 4)
+
+
+# Vacia todos los campos escritos por el usuario
+func clear_input_data() -> void:
+	nam.text = ""
+	sur.text = ""
+	dni.text = ""
+	rol.select(0)
+	usr.text = ""
+	pwd.text = ""
+	return
+
+
+# Se ejecuta cuando la escena cambia su visibilidad
+func _on_visibility_changed():
+	if (self.is_visible()):
+		DB.get_users_count()
 

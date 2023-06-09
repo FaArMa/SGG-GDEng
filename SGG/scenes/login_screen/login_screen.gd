@@ -1,8 +1,10 @@
 extends Control
 
+
 signal login_screen_return
 
-@onready var DB = Database.new()
+
+@onready var DB = EventBus.database
 @onready var usr = $Username
 @onready var pwd = $Password
 @onready var error_label = $Incorrect
@@ -11,13 +13,10 @@ signal login_screen_return
 
 # Se ejecuta cuando el nodo entra en el árbol de escena por primera vez
 func _ready():
-	# Agregar DB como nodo hijo de LoginScreen para luego conectar con sus señales
-	add_child(DB)
+	# Conectar con las señales de Database
 	DB.connect("response_user_role", _on_response_user_role)
 	DB.connect("response_user_credentials", _on_response_user_credentials)
 	DB.connect("response_error", _on_response_error)
-	# Al darle el foco se puede manejar con teclado sin necesidad de hacer clic antes
-	usr.grab_focus()
 
 
 # Se ejecuta cuando se presiona el boton Login
@@ -46,19 +45,27 @@ func _on_button_back_pressed():
 
 
 # Se ejecuta cuando Database envia su señal de response_user_role
-# TODO Agregar todos los roles que hagan falta
 func _on_response_user_role(user_role):
+	if (!self.is_visible()):
+		return
 	match user_role:
 		"0":
 			print("[OK] El rol del mismo es Dueño")
 		"1":
-			print("[OK] El rol del mismo es Gerente")
+			print("[OK] El rol del mismo es Encargado")
+		"2":
+			print("[OK] El rol del mismo es Empleado")
+		"3":
+			print("[OK] El rol del mismo es Contador")
 		_:
 			print("[ERROR] El rol del mismo no pudo ser obtenido")
+	get_tree().change_scene_to_file("res://scenes/ui/ui.tscn")
 
 
 # Se ejecuta cuando Database envia su señal de response_user_credentials
 func _on_response_user_credentials(are_valid_user_credentials):
+	if (!self.is_visible()):
+		return
 	if (are_valid_user_credentials.is_empty()):
 		print("[ERROR] Usuario y/o contraseña incorrectos")
 		error_label.text = "Usuario y/o contraseña incorrectos"
@@ -66,11 +73,18 @@ func _on_response_user_credentials(are_valid_user_credentials):
 	else:
 		print("[OK] Usuario y contraseña correctos")
 		DB.get_user_role(usr.text)
-		get_tree().change_scene_to_file("res://scenes/ui/ui.tscn")
 
 
 # Se ejecuta cuando Database envia su señal de response_error
 func _on_response_error(error_msg):
+	if (!self.is_visible()):
+		return
 	error_label.text = error_msg
 	error_label.visible = true
+
+
+# Se ejecuta cuando la escena cambia su visibilidad
+func _on_visibility_changed():
+	if (self.is_visible()):
+		usr.grab_focus()
 
