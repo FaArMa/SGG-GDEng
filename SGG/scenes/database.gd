@@ -10,9 +10,8 @@ signal response_add_user(register_result)
 signal response_error(error_msg)
 
 
-# TODO La URL debería ser obtenida desde un archivo de texto
-const url: String = "http://localhost/SGG-Web/src/php/sgg_api.php"
 const headers: Array = ["Content-Type: application/x-www-form-urlencoded"]
+var url: String = OS.get_environment("API_URL")
 var data: Dictionary
 @onready var httpr: HTTPRequest = HTTPRequest.new()
 @onready var httpc: HTTPClient = HTTPClient.new()
