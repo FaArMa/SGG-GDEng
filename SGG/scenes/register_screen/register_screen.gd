@@ -1,10 +1,13 @@
 extends Control
 
+
 signal register_screen_return
+
 
 @onready var DB = Database.new()
 @onready var nam = $Input_Container/Name
 @onready var sur = $Input_Container/Surname
+@onready var dni = $Input_Container/DNI
 @onready var rol = $Input_Container/Role
 @onready var usr = $Input_Container/Username
 @onready var pwd = $Input_Container/Password
@@ -27,10 +30,13 @@ func _ready():
 	nam.grab_focus()
 
 
-# Se ejecuta cuando el texto de Name / Surname / Username / Password cambia
+# Se ejecuta cuando el texto de Name / Surname / DNI / Username / Password cambia
 func _on_line_edit_text_changed(_new_text):
 	register_button.disabled = false
 	error_label.visible = false
+	if (!nam.text.is_empty() && !sur.text.is_empty() && !dni.text.is_empty()):
+		usr.text = generate_username(nam.text, sur.text)
+		pwd.text = generate_password(dni.text)
 
 
 # Se ejecuta cuando se presiona el boton Register
@@ -39,14 +45,19 @@ func _on_register_pressed():
 	# TODO Hacer una mejor restricción de lo que se puede y no escribir
 	nam.text = nam.text.strip_edges()
 	sur.text = sur.text.strip_edges()
+	dni.text = dni.text.strip_edges()
 	usr.text = usr.text.strip_edges()
 	pwd.text = pwd.text.strip_edges()
-	if (nam.text.is_empty() || sur.text.is_empty() || usr.text.is_empty() || pwd.text.is_empty()):
+	if (nam.text.is_empty() || sur.text.is_empty() || dni.text.is_empty() || usr.text.is_empty() || pwd.text.is_empty()):
 		print("[ERROR] Todos los campos deben ser completados")
 		error_label.text = "Todos los campos deben ser completados"
 		error_label.visible = true
+	elif (!dni.text.is_valid_int() || dni.text.to_int() < 1000 || dni.text.to_int() > 99999999):
+		print("[ERROR] El DNI debe ser un número entre 1.000 y 99.999.999")
+		error_label.text = "El DNI debe ser un número entre 1.000 y 99.999.999"
+		error_label.visible = true
 	else:
-		DB.add_new_user(nam.text, sur.text, rol.selected, usr.text, pwd.text)
+		DB.add_new_user(nam.text, sur.text, dni.text.to_int(), rol.selected, usr.text, pwd.text)
 
 
 # Se ejecuta cuando se presiona el boton Back
@@ -64,8 +75,7 @@ func _on_get_users_count(count):
 	print("[OK] La cantidad de usuarios registrados es: %s" % count)
 	nam.editable = true
 	sur.editable = true
-	usr.editable = true
-	pwd.editable = true
+	dni.editable = true
 	register_button.disabled = false
 	if (count.to_int() > 0):
 		rol.disabled = false
@@ -92,4 +102,14 @@ func _on_response_add_user(register_result):
 func _on_response_error(error_msg):
 	error_label.text = error_msg
 	error_label.visible = true
+
+
+# Devuelve un usuario conformado por la primer letra del Name + Surname
+func generate_username(_nam: String, _sur: String) -> String:
+	return (_nam.substr(0, 1) + _sur).to_lower()
+
+
+# Devuelve una contraseña conformada por los últimos 4 dígitos del DNI
+func generate_password(_dni: String) -> String:
+	return _dni.substr(_dni.length() - 4, 4)
 

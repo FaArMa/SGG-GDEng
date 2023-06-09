@@ -65,10 +65,11 @@ func is_valid_user_password(_user: String, _password: String) -> void:
 
 
 # Registrar / Agregar un nuevo usuario
-func add_new_user(_name: String, _surname: String, _role: int, _username: String, _password: String) -> void:
+func add_new_user(_name: String, _surname: String, _dni: int, _role: int, _username: String, _password: String) -> void:
 	data = {
 		"name": _name,
 		"surname": _surname,
+		"dni": _dni,
 		"role": _role,
 		"username": _username,
 		"password": _password,
