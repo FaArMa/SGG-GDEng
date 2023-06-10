@@ -1,0 +1,104 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4wdx0wakcsbr"]
+
+[ext_resource type="Script" path="res://scenes/billing_menu_scene/billing_menu_scene.gd" id="1_elwf4"]
+[ext_resource type="StyleBox" uid="uid://cim0paocddqct" path="res://resources/panel_style.tres" id="2_dewvf"]
+
+[node name="billing_menu_scene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("1_elwf4")
+
+[node name="Billing_Menu_Container" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="Background" type="Panel" parent="Billing_Menu_Container"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.004
+anchor_top = 0.028
+anchor_right = 0.004
+anchor_bottom = 0.028
+offset_left = 346.88
+offset_top = 187.84
+offset_right = 922.88
+offset_bottom = 507.84
+theme_override_styles/panel = ExtResource("2_dewvf")
+
+[node name="Content_Container" type="VBoxContainer" parent="Billing_Menu_Container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -135.5
+offset_right = 220.0
+offset_bottom = 135.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Labels_Container" type="VBoxContainer" parent="Billing_Menu_Container/Content_Container"]
+layout_mode = 2
+
+[node name="Title_Label" type="Label" parent="Billing_Menu_Container/Content_Container/Labels_Container"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Consultar Facturación"
+horizontal_alignment = 1
+
+[node name="Subtitle1_Label" type="Label" parent="Billing_Menu_Container/Content_Container/Labels_Container"]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
+text = "Elija entre qué fechas quiere consultar, con formato DD/MM/AAAA."
+vertical_alignment = 1
+
+[node name="Subtitle2_Label" type="Label" parent="Billing_Menu_Container/Content_Container/Labels_Container"]
+layout_mode = 2
+text = "Sólo indique la primera si es que le interesa un único día."
+vertical_alignment = 1
+
+[node name="Input_And_Button_Container" type="GridContainer" parent="Billing_Menu_Container/Content_Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 40
+theme_override_constants/v_separation = 40
+columns = 2
+
+[node name="Start_Date" type="LineEdit" parent="Billing_Menu_Container/Content_Container/Input_And_Button_Container"]
+custom_minimum_size = Vector2(174, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+placeholder_text = "Desde..."
+alignment = 1
+max_length = 10
+
+[node name="End_Date" type="LineEdit" parent="Billing_Menu_Container/Content_Container/Input_And_Button_Container"]
+custom_minimum_size = Vector2(174, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+placeholder_text = "Hasta..."
+alignment = 1
+max_length = 10
+
+[node name="Accept_Button" type="Button" parent="Billing_Menu_Container/Content_Container/Input_And_Button_Container"]
+custom_minimum_size = Vector2(192, 64)
+layout_mode = 2
+text = "Buscar"
+
+[node name="Cancel_Button" type="Button" parent="Billing_Menu_Container/Content_Container/Input_And_Button_Container"]
+custom_minimum_size = Vector2(192, 64)
+layout_mode = 2
+text = "Salir"
+
+[connection signal="pressed" from="Billing_Menu_Container/Content_Container/Input_And_Button_Container/Accept_Button" to="." method="_on_accept_button_pressed"]
+[connection signal="pressed" from="Billing_Menu_Container/Content_Container/Input_And_Button_Container/Cancel_Button" to="." method="_on_cancel_button_pressed"]

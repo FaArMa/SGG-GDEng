@@ -1,0 +1,259 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr1dg158f4kdf"]
+
+[ext_resource type="Script" path="res://scenes/product_menu_scene/product_menu_scene.gd" id="1_mafuv"]
+[ext_resource type="StyleBox" uid="uid://cim0paocddqct" path="res://resources/panel_style.tres" id="2_wtat1"]
+
+[node name="product_menu_scene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_mafuv")
+
+[node name="Product_Menu_Block_Container" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="Product_Menu_Scroll_Container" type="ScrollContainer" parent="Product_Menu_Block_Container"]
+custom_minimum_size = Vector2(768, 576)
+layout_mode = 0
+offset_left = 256.0
+offset_top = 64.0
+offset_right = 1032.0
+offset_bottom = 640.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="Product_Main_Menu_container" type="Control" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container"]
+custom_minimum_size = Vector2(768, 896)
+layout_mode = 2
+
+[node name="Product_Menu_Background" type="Panel" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_wtat1")
+
+[node name="Product_Menu_Title" type="Label" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container"]
+custom_minimum_size = Vector2(192, 64)
+layout_mode = 2
+offset_left = 288.0
+offset_right = 480.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 32
+text = "Productos"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Existing_Product_Input_Container" type="VBoxContainer" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container"]
+custom_minimum_size = Vector2(0, 168)
+layout_mode = 0
+offset_left = 32.0
+offset_top = 64.0
+offset_right = 736.0
+offset_bottom = 232.0
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="Existing_Product_Title" type="Label" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Product_Input_Container"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Modificar Producto Existente"
+horizontal_alignment = 1
+
+[node name="Existing_Product_Text_Container" type="HBoxContainer" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Product_Input_Container"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Existing_Product_Name" type="OptionButton" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Product_Input_Container/Existing_Product_Text_Container"]
+custom_minimum_size = Vector2(350, 32)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Existing_Product_Price" type="LineEdit" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Product_Input_Container/Existing_Product_Text_Container" groups=["existing_product_input_group"]]
+custom_minimum_size = Vector2(152, 32)
+layout_mode = 2
+size_flags_vertical = 0
+placeholder_text = "Precio..."
+editable = false
+
+[node name="Existing_Product_Type" type="OptionButton" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Product_Input_Container/Existing_Product_Text_Container"]
+custom_minimum_size = Vector2(152, 32)
+layout_mode = 2
+size_flags_vertical = 0
+disabled = true
+item_count = 2
+popup/item_0/text = "Comida"
+popup/item_0/id = 0
+popup/item_1/text = "Bebida"
+popup/item_1/id = 1
+
+[node name="Existing_Product_Button_Container" type="HBoxContainer" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Product_Input_Container"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Modify_Product" type="Button" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Product_Input_Container/Existing_Product_Button_Container" groups=["existing_product_input_group"]]
+custom_minimum_size = Vector2(250, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+text = "Modificar Producto"
+
+[node name="Delete_Product" type="Button" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Product_Input_Container/Existing_Product_Button_Container" groups=["existing_product_input_group"]]
+custom_minimum_size = Vector2(250, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+text = "Eliminar Producto"
+
+[node name="New_Product_Input_Container" type="VBoxContainer" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container"]
+custom_minimum_size = Vector2(0, 168)
+layout_mode = 2
+anchor_left = 0.0454545
+anchor_top = 0.105263
+anchor_right = 0.0454545
+anchor_bottom = 0.105263
+offset_left = -2.90906
+offset_top = 137.684
+offset_right = 701.091
+offset_bottom = 305.684
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="New_Product_Title" type="Label" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/New_Product_Input_Container"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Agregar Nuevo Producto"
+horizontal_alignment = 1
+
+[node name="New_Product_Text_Container" type="GridContainer" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/New_Product_Input_Container"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_constants/h_separation = 25
+columns = 3
+
+[node name="Product_Name" type="LineEdit" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/New_Product_Input_Container/New_Product_Text_Container"]
+custom_minimum_size = Vector2(350, 32)
+layout_mode = 2
+placeholder_text = "Nombre del Producto..."
+
+[node name="Product_Price" type="LineEdit" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/New_Product_Input_Container/New_Product_Text_Container" groups=["new_product_input_group"]]
+custom_minimum_size = Vector2(152, 32)
+layout_mode = 2
+placeholder_text = "Precio..."
+editable = false
+
+[node name="New_Product_Type" type="OptionButton" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/New_Product_Input_Container/New_Product_Text_Container" groups=["new_product_input_group"]]
+custom_minimum_size = Vector2(152, 32)
+layout_mode = 2
+disabled = true
+item_count = 2
+selected = 0
+popup/item_0/text = "Comida"
+popup/item_0/id = 0
+popup/item_1/text = "Bebida"
+popup/item_1/id = 1
+
+[node name="New_Product_Button_Container" type="HBoxContainer" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/New_Product_Input_Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 25
+
+[node name="New_Product_Select_Ingredient" type="Button" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/New_Product_Input_Container/New_Product_Button_Container" groups=["new_product_input_group"]]
+custom_minimum_size = Vector2(250, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+text = "Seleccionar Ingredientes"
+
+[node name="Selected_Ingredient_Container" type="VBoxContainer" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container"]
+layout_mode = 2
+offset_left = 416.0
+offset_top = 400.0
+offset_right = 704.0
+offset_bottom = 713.0
+theme_override_constants/separation = 8
+
+[node name="Selected_Ingredient_Label" type="Label" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Selected_Ingredient_Container"]
+layout_mode = 2
+text = "Ingredientes Seleccionados"
+horizontal_alignment = 1
+
+[node name="Selected_Ingredient_Name" type="ItemList" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Selected_Ingredient_Container"]
+custom_minimum_size = Vector2(160, 192)
+layout_mode = 2
+
+[node name="Selected_Ingredient_Quantity" type="LineEdit" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Selected_Ingredient_Container" groups=["modify_ingredients_group"]]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+placeholder_text = "Cantidad..."
+editable = false
+
+[node name="Selected_Ingredient_Remove" type="Button" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Selected_Ingredient_Container" groups=["modify_ingredients_group"]]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+disabled = true
+text = "Quitar"
+
+[node name="Existing_Ingredient_Container" type="VBoxContainer" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container"]
+layout_mode = 2
+offset_left = 64.0
+offset_top = 400.0
+offset_right = 352.0
+offset_bottom = 713.0
+theme_override_constants/separation = 8
+
+[node name="Existing_Ingredient_Label" type="Label" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Ingredient_Container"]
+layout_mode = 2
+text = "Ingredientes Existentes"
+horizontal_alignment = 1
+
+[node name="Existing_Ingredient_Name" type="ItemList" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Ingredient_Container"]
+custom_minimum_size = Vector2(160, 192)
+layout_mode = 2
+
+[node name="Existing_Ingredient_Quantity" type="LineEdit" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Ingredient_Container" groups=["modify_ingredients_group"]]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+placeholder_text = "Cantidad..."
+editable = false
+
+[node name="Existing_Ingredient_Add" type="Button" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Ingredient_Container" groups=["modify_ingredients_group"]]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+disabled = true
+text = "Agregar"
+
+[node name="Add_New_Product" type="Button" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container"]
+custom_minimum_size = Vector2(704, 64)
+layout_mode = 0
+offset_left = 32.0
+offset_top = 736.0
+offset_right = 736.0
+offset_bottom = 788.0
+disabled = true
+text = "Crear Producto"
+
+[node name="Exit_Button" type="Button" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container"]
+custom_minimum_size = Vector2(351, 48)
+layout_mode = 0
+offset_left = 208.0
+offset_top = 824.0
+offset_right = 559.0
+offset_bottom = 872.0
+text = "Salir"
+
+[connection signal="item_selected" from="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Product_Input_Container/Existing_Product_Text_Container/Existing_Product_Name" to="." method="_on_existing_product_name_item_selected"]
+[connection signal="pressed" from="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Exit_Button" to="." method="_on_exit_button_pressed"]

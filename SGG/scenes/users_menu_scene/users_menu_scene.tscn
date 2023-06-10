@@ -1,0 +1,184 @@
+[gd_scene load_steps=3 format=3 uid="uid://xmfftkbknild"]
+
+[ext_resource type="Script" path="res://scenes/users_menu_scene/users_menu_scene.gd" id="1_fy8je"]
+[ext_resource type="StyleBox" uid="uid://cim0paocddqct" path="res://resources/panel_style.tres" id="2_h2ijo"]
+
+[node name="users_menu_scene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("1_fy8je")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 48.0
+offset_right = 1024.0
+offset_bottom = 688.0
+theme_override_styles/panel = ExtResource("2_h2ijo")
+
+[node name="Users_Menu_Title" type="Label" parent="."]
+custom_minimum_size = Vector2(192, 64)
+layout_mode = 0
+offset_left = 544.0
+offset_top = 48.0
+offset_right = 736.0
+offset_bottom = 112.0
+theme_override_font_sizes/font_size = 32
+text = "Usuarios"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Content_Container" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="User_Permissions_Label_Container" type="VBoxContainer" parent="Content_Container"]
+layout_mode = 0
+offset_left = 688.0
+offset_top = 224.0
+offset_right = 966.0
+offset_bottom = 562.0
+theme_override_constants/separation = 26
+
+[node name="Title_Label" type="Label" parent="Content_Container/User_Permissions_Label_Container"]
+layout_mode = 2
+text = "Actividades permitidas:"
+horizontal_alignment = 1
+
+[node name="Tables_Permissions_Label" type="Label" parent="Content_Container/User_Permissions_Label_Container" groups=["permissions"]]
+visible = false
+layout_mode = 2
+text = "Agregar, quitar y modificar mesas"
+
+[node name="Users_Permissions_Label" type="Label" parent="Content_Container/User_Permissions_Label_Container" groups=["permissions"]]
+visible = false
+layout_mode = 2
+text = "Agregar, quitar y modificar usuarios"
+
+[node name="Billing_Permissions_Label" type="Label" parent="Content_Container/User_Permissions_Label_Container" groups=["permissions"]]
+visible = false
+layout_mode = 2
+text = "Consultar facturación"
+
+[node name="Stock_Permissions_Label" type="Label" parent="Content_Container/User_Permissions_Label_Container" groups=["permissions"]]
+visible = false
+layout_mode = 2
+text = "Modificar stock"
+
+[node name="Suppliers_Permissions_Label" type="Label" parent="Content_Container/User_Permissions_Label_Container" groups=["permissions"]]
+visible = false
+layout_mode = 2
+text = "Realizar pedidos a proveedores"
+
+[node name="Orders_Permissions_Label" type="Label" parent="Content_Container/User_Permissions_Label_Container" groups=["permissions"]]
+visible = false
+layout_mode = 2
+text = "Comandar a mesas"
+
+[node name="User_Permissions_Button_Container" type="HBoxContainer" parent="Content_Container"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 128.0
+offset_right = 960.0
+offset_bottom = 188.0
+theme_override_constants/separation = 20
+
+[node name="Register_User_Button" type="Button" parent="Content_Container/User_Permissions_Button_Container"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+text = "Registrar Usuario"
+
+[node name="Erase_User_Button" type="Button" parent="Content_Container/User_Permissions_Button_Container"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+disabled = true
+text = "Eliminar Usuario"
+
+[node name="Modify_User_Button" type="Button" parent="Content_Container/User_Permissions_Button_Container"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+disabled = true
+text = "Modificar Usuario"
+
+[node name="User_List" type="ItemList" parent="Content_Container"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 224.0
+offset_right = 656.0
+offset_bottom = 576.0
+
+[node name="Exit_Button" type="Button" parent="Content_Container"]
+custom_minimum_size = Vector2(192, 60)
+layout_mode = 0
+offset_left = 544.0
+offset_top = 608.0
+offset_right = 736.0
+offset_bottom = 668.0
+text = "Salir"
+
+[node name="Confirm_Dialog" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Confirm_Background" type="ColorRect" parent="Confirm_Dialog"]
+layout_mode = 2
+offset_left = 464.0
+offset_top = 280.0
+offset_right = 816.0
+offset_bottom = 440.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.247059, 0.0470588, 0.0470588, 1)
+
+[node name="Container" type="VBoxContainer" parent="Confirm_Dialog"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.5
+offset_top = -53.0
+offset_right = 160.5
+offset_bottom = 53.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Label" type="Label" parent="Confirm_Dialog/Container"]
+layout_mode = 2
+text = "¿Quiere eliminar el usuario seleccionado?
+Este cambio no es reversible."
+horizontal_alignment = 1
+
+[node name="Confirm_Buttons_Container" type="HBoxContainer" parent="Confirm_Dialog/Container"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Accept_Button" type="Button" parent="Confirm_Dialog/Container/Confirm_Buttons_Container"]
+custom_minimum_size = Vector2(130, 50)
+layout_mode = 2
+text = "Sí"
+
+[node name="Cancel_Button" type="Button" parent="Confirm_Dialog/Container/Confirm_Buttons_Container"]
+custom_minimum_size = Vector2(130, 50)
+layout_mode = 2
+text = "Cancelar"
+
+[connection signal="pressed" from="Content_Container/User_Permissions_Button_Container/Register_User_Button" to="." method="_on_register_user_button_pressed"]
+[connection signal="pressed" from="Content_Container/User_Permissions_Button_Container/Erase_User_Button" to="." method="_on_erase_user_button_pressed"]
+[connection signal="pressed" from="Content_Container/User_Permissions_Button_Container/Modify_User_Button" to="." method="_on_modify_user_button_pressed"]
+[connection signal="item_selected" from="Content_Container/User_List" to="." method="_on_user_list_item_selected"]
+[connection signal="pressed" from="Content_Container/Exit_Button" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="Confirm_Dialog/Container/Confirm_Buttons_Container/Accept_Button" to="." method="_on_accept_button_pressed"]
+[connection signal="pressed" from="Confirm_Dialog/Container/Confirm_Buttons_Container/Cancel_Button" to="." method="_on_cancel_button_pressed"]
