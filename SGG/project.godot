@@ -22,11 +22,13 @@ config/windows_native_icon="res://icon.ico"
 
 EnvFileHandler="*res://env_file_handler.gd"
 EventBus="*res://EventBus.gd"
+DatabaseContent="*res://Database_Content.gd"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/resizable=false
 
 [input]
 

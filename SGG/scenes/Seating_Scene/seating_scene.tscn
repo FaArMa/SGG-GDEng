@@ -4,25 +4,25 @@
 [ext_resource type="Texture2D" uid="uid://c2sy7j1iamh55" path="res://scenes/table_ghost.png" id="2_3xpt4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vbebl"]
-size = Vector2(905.75, 605.75)
+size = Vector2(1008, 672)
 
 [node name="Seating_Scene" type="Node2D"]
 script = ExtResource("1_exicm")
 
 [node name="Seating_Area" type="Area2D" parent="."]
 
-[node name="Seating_Area_Collision" type="CollisionShape2D" parent="Seating_Area"]
-position = Vector2(464, 336)
-shape = SubResource("RectangleShape2D_vbebl")
-
 [node name="Seating_Area_Background" type="ColorRect" parent="Seating_Area"]
 visible = false
-offset_left = 11.0
-offset_top = 33.0
-offset_right = 917.0
-offset_bottom = 639.0
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 1024.0
+offset_bottom = 704.0
 mouse_filter = 1
 color = Color(0, 0.580392, 0.803922, 0.196078)
+
+[node name="Seating_Area_Collision" type="CollisionShape2D" parent="Seating_Area"]
+position = Vector2(520, 368)
+shape = SubResource("RectangleShape2D_vbebl")
 
 [node name="Table_Ghost" type="Sprite2D" parent="."]
 visible = false

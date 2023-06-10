@@ -10,23 +10,34 @@ script = ExtResource("1_v3m0a")
 [node name="Main_Menu" type="MenuBar" parent="."]
 layout_direction = 2
 
+[node name="Main_Menu_Background" type="ColorRect" parent="Main_Menu"]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 32.0
+color = Color(0.215686, 0.215686, 0.215686, 0.470588)
+
 [node name="Main_Menu_Config" type="MenuButton" parent="Main_Menu"]
 layout_mode = 0
-offset_left = 68.0
-offset_right = 132.0
-offset_bottom = 31.0
+offset_left = 8.0
+offset_right = 124.0
+offset_bottom = 32.0
 text = "Configuración"
-item_count = 2
-popup/item_0/text = "Editar Mesas"
+item_count = 4
+popup/item_0/text = "Salón..."
 popup/item_0/id = 0
-popup/item_1/text = "item2"
+popup/item_1/text = "Usuarios..."
 popup/item_1/id = 1
+popup/item_2/text = "Productos..."
+popup/item_2/id = 2
+popup/item_3/text = "Contaduría..."
+popup/item_3/id = 3
 
 [node name="Side_Menu" type="VBoxContainer" parent="."]
-offset_left = 896.0
-offset_top = 42.0
-offset_right = 1126.0
-offset_bottom = 648.0
+visible = false
+offset_left = 1040.0
+offset_top = 48.0
+offset_right = 1264.0
+offset_bottom = 528.0
 theme_override_constants/separation = 10
 
 [node name="Add_Table" type="Button" parent="Side_Menu"]
@@ -51,7 +62,7 @@ button_group = ExtResource("2_ygdbk")
 text = "Modificar Paredes"
 
 [node name="Side_Menu_Extra" type="VBoxContainer" parent="Side_Menu"]
-custom_minimum_size = Vector2(0, 350)
+custom_minimum_size = Vector2(0, 260)
 layout_mode = 2
 alignment = 2
 
@@ -59,6 +70,94 @@ alignment = 2
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 text = "Salir"
+
+[node name="Info_Container" type="GridContainer" parent="."]
+offset_left = 1040.0
+offset_top = 536.0
+offset_right = 1264.0
+offset_bottom = 704.0
+size_flags_horizontal = 2
+
+[node name="Name_Label" type="Label" parent="Info_Container"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Crudos y Fritos SRL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Date_Time_Label" type="Label" parent="Info_Container"]
+custom_minimum_size = Vector2(220, 25)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Miércoles 01/05/2025, 20:57 hs"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cutlery_Label" type="Label" parent="Info_Container"]
+custom_minimum_size = Vector2(220, 25)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Cubiertos"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Open_Cutlery_Container" type="HBoxContainer" parent="Info_Container"]
+custom_minimum_size = Vector2(224, 0)
+layout_mode = 2
+
+[node name="Open_Cutlery_Label" type="Label" parent="Info_Container/Open_Cutlery_Container"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Abiertos"
+vertical_alignment = 1
+
+[node name="Open_Cutlery_Count" type="Label" parent="Info_Container/Open_Cutlery_Container"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "125"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Closed_Cutlery_Container" type="HBoxContainer" parent="Info_Container"]
+custom_minimum_size = Vector2(224, 0)
+layout_mode = 2
+
+[node name="Closed_Cutlery_Label" type="Label" parent="Info_Container/Closed_Cutlery_Container"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Cerrados"
+vertical_alignment = 1
+
+[node name="Closed_Cutlery_Count" type="Label" parent="Info_Container/Closed_Cutlery_Container"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "41"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Total_Cutlery_Container" type="HBoxContainer" parent="Info_Container"]
+custom_minimum_size = Vector2(224, 0)
+layout_mode = 2
+
+[node name="Total_Cutlery_Label" type="Label" parent="Info_Container/Total_Cutlery_Container"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Totales"
+vertical_alignment = 1
+
+[node name="Total_Cutlery_Count" type="Label" parent="Info_Container/Total_Cutlery_Container"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "166"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="Seating_Scene" parent="." instance=ExtResource("2_8qasa")]
 

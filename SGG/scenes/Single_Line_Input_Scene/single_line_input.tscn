@@ -13,7 +13,7 @@ script = ExtResource("1_x5jxe")
 
 [node name="Dialog_Window" type="Window" parent="."]
 title = "Ingreso de Texto"
-position = Vector2i(445, 224)
+position = Vector2i(490, 285)
 size = Vector2i(300, 150)
 transient = true
 exclusive = true
