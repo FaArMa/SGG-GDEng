@@ -27,6 +27,46 @@ func _init():
 	httpr.request_completed.connect(_on_httpr_request_completed)
 
 
+func get_user_list() -> void:
+	data = {"action": "get_user_list"}
+	var body = httpc.query_string_from_dict(data)
+	var result = httpr.request(url, headers, HTTPClient.METHOD_POST, body)
+	http_error_exists(httpr, result)
+	return
+
+
+func get_product_list() -> void:
+	data = {"action": "get_product_list"}
+	var body = httpc.query_string_from_dict(data)
+	var result = httpr.request(url, headers, HTTPClient.METHOD_POST, body)
+	http_error_exists(httpr, result)
+	return
+
+
+func get_available_ingredients() -> void:
+	data = {"action": "get_available_ingredients"}
+	var body = httpc.query_string_from_dict(data)
+	var result = httpr.request(url, headers, HTTPClient.METHOD_POST, body)
+	http_error_exists(httpr, result)
+	return
+
+
+func get_product_ingredients() -> void:
+	data = {"action": "get_product_ingredients"}
+	var body = httpc.query_string_from_dict(data)
+	var result = httpr.request(url, headers, HTTPClient.METHOD_POST, body)
+	http_error_exists(httpr, result)
+	return
+
+
+func get_product_ingredient_amounts() -> void:
+	data = {"action": "get_product_ingredient_amounts"}
+	var body = httpc.query_string_from_dict(data)
+	var result = httpr.request(url, headers, HTTPClient.METHOD_POST, body)
+	http_error_exists(httpr, result)
+	return
+
+
 # Obtener la cantidad de usuarios registrados
 func get_users_count() -> void:
 	data = {"action": "get_users_count"}
@@ -86,6 +126,16 @@ func _on_httpr_request_completed(_result, _response_code, _headers, _body) -> vo
 
 	# Enviar la señal que corresponda
 	match data["action"]:
+		"get_available_ingredients":
+			EventBus.emit_signal("response_available_ingredients", _body)
+		"get_product_ingredient_amounts":
+			EventBus.emit_signal("response_product_ingredient_amount_list", _body)
+		"get_product_list":
+			EventBus.emit_signal("response_product_list", _body)
+		"get_product_ingredients":
+			EventBus.emit_signal("response_product_ingredient_list", _body)
+		"get_user_list":
+			EventBus.emit_signal("response_get_user_list", _body)
 		"get_users_count":
 			emit_signal("response_users_count", _body)
 		"get_user_role":

@@ -20,6 +20,18 @@ func _ready():
 	# ¿No hay usuarios? entonces sos el primero (automaticamente Dueño) y vas a "Registrarte"
 	# ¿Hubo un error? F en el chat
 	DB.get_users_count()
+	await DB.httpr.request_completed
+	DB.get_product_list()
+	await DB.httpr.request_completed
+	DB.get_available_ingredients()
+	await DB.httpr.request_completed
+	DB.get_product_ingredients()
+	await DB.httpr.request_completed
+	DB.get_product_ingredient_amounts()
+	await DB.httpr.request_completed
+	DB.get_user_list()
+	# Al darle el foco se puede manejar con teclado sin necesidad de hacer clic antes
+	login_button.grab_focus()
 	# Conectar la escena actual con la señal "visibility_changed"
 	self.connect("visibility_changed", _on_visibility_changed)
 
