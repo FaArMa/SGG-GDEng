@@ -3,18 +3,28 @@ extends Control
 
 signal register_screen_return
 
+var modify_user_mode: bool:
+	set(value):
+		modify_user_mode = value
+		title.text = "Modificar Usuario"
+		register_button.text = "Modificar"
+	get:
+		return modify_user_mode
 
-@onready var DB = EventBus.database
-@onready var nam = $Input_Container/Name
-@onready var sur = $Input_Container/Surname
-@onready var dni = $Input_Container/DNI
-@onready var rol = $Input_Container/Role
-@onready var usr = $Input_Container/Username
-@onready var pwd = $Input_Container/Password
-@onready var error_label = $Incorrect
-@onready var register_button = $Register
+@onready var DB
+@onready var title = $Register_Scene_Block_Container/Title
+@onready var nam = $Register_Scene_Block_Container/Input_Container/Name
+@onready var sur = $Register_Scene_Block_Container/Input_Container/Surname
+@onready var dni = $Register_Scene_Block_Container/Input_Container/DNI
+@onready var rol = $Register_Scene_Block_Container/Input_Container/Role
+@onready var usr = $Register_Scene_Block_Container/Input_Container/Username
+@onready var pwd = $Register_Scene_Block_Container/Input_Container/Password
+@onready var error_label = $Register_Scene_Block_Container/Incorrect
+@onready var register_button = $Register_Scene_Block_Container/Register
 @onready var is_first_user: bool = true
 
+func _init():
+	DB = EventBus.database
 
 # Se ejecuta cuando el nodo entra en el árbol de escena por primera vez
 func _ready():
@@ -51,7 +61,13 @@ func _on_register_pressed():
 		error_label.text = "El DNI debe ser un número entre 1.000 y 99.999.999"
 		error_label.visible = true
 	else:
-		DB.add_new_user(nam.text, sur.text, dni.text.to_int(), rol.selected, usr.text, pwd.text)
+		if modify_user_mode:
+			DB.modify_user(nam.text, sur.text, dni.text.to_int(), rol.selected, usr.text, pwd.text, DatabaseContent.user_info[4].to_int())
+			await DB.httpr.request_completed
+			DB.get_user_list()
+			emit_signal("register_screen_return")
+		else:
+			DB.add_new_user(nam.text, sur.text, dni.text.to_int(), rol.selected, usr.text, pwd.text)
 
 
 # Se ejecuta cuando se presiona el boton Back
@@ -73,14 +89,16 @@ func _on_get_users_count(count):
 	sur.editable = true
 	dni.editable = true
 	register_button.disabled = false
-	if (count.to_int() > 0):
+	if (count.to_int() > 0) and not modify_user_mode:
 		rol.disabled = false
 		register_button.text = "Agregar usuario"
 		is_first_user = false
 	else:
 		rol.disabled = true
 		is_first_user = true
-	nam.grab_focus()
+
+	if modify_user_mode:
+		rol.disabled = false
 
 
 # Se ejecuta cuando Database envia su señal de response_add_user
@@ -93,11 +111,10 @@ func _on_response_add_user(register_result):
 		error_label.visible = true
 	else:
 		print("[OK] Usuario agregado correctamente")
+		DB.get_user_list()
 		if (is_first_user):
 			get_tree().change_scene_to_file("res://scenes/ui/ui.tscn")
-		else:
-			clear_input_data()
-			nam.grab_focus()
+		self.queue_free()
 
 
 # Se ejecuta cuando Database envia su señal de response_error
@@ -110,7 +127,7 @@ func _on_response_error(error_msg):
 
 # Devuelve un usuario conformado por la primer letra del Name + Surname
 func generate_username(_nam: String, _sur: String) -> String:
-	return (_nam.substr(0, 1) + _sur).to_lower()
+	return (_nam.substr(0, 1) + _sur).to_lower().replace(" ","")
 
 
 # Devuelve una contraseña conformada por los últimos 4 dígitos del DNI
@@ -118,19 +135,16 @@ func generate_password(_dni: String) -> String:
 	return _dni.substr(_dni.length() - 4, 4)
 
 
-# Vacia todos los campos escritos por el usuario
-func clear_input_data() -> void:
-	nam.text = ""
-	sur.text = ""
-	dni.text = ""
-	rol.select(0)
-	usr.text = ""
-	pwd.text = ""
-	return
+func autocomplete_user_info(_user):
+	nam.text = DatabaseContent.user_info[0]
+	sur.text = DatabaseContent.user_info[1]
+	dni.text = DatabaseContent.user_info[2]
+	rol.select(DatabaseContent.user_info[3].to_int())
+	usr.text = _user
+	pwd.text = dni.text.substr(dni.text.length() - 4, 4)
 
 
 # Se ejecuta cuando la escena cambia su visibilidad
 func _on_visibility_changed():
 	if (self.is_visible()):
 		DB.get_users_count()
-

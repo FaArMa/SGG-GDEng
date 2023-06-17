@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b16imq6v616fx"]
+[gd_scene load_steps=3 format=3 uid="uid://b16imq6v616fx"]
 
 [ext_resource type="Script" path="res://scenes/Single_Line_Input_Scene/single_line_input.gd" id="1_x5jxe"]
+[ext_resource type="StyleBox" uid="uid://cim0paocddqct" path="res://resources/panel_style.tres" id="2_hg7tf"]
 
 [node name="Single_Line_Input_Scene" type="Control"]
 layout_mode = 3
@@ -11,54 +12,114 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_x5jxe")
 
-[node name="Dialog_Window" type="Window" parent="."]
-title = "Ingreso de Texto"
-position = Vector2i(490, 285)
-size = Vector2i(300, 150)
-transient = true
-exclusive = true
-unresizable = true
-popup_window = true
-min_size = Vector2i(300, 150)
+[node name="Input_Block_Container" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
 
-[node name="Background" type="ColorRect" parent="Dialog_Window"]
+[node name="Bigger_Background" type="Panel" parent="Input_Block_Container"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.25098, 0.345098, 0.333333, 0.32549)
 
-[node name="Input" type="LineEdit" parent="Dialog_Window"]
+[node name="Input_Menu_Container" type="Control" parent="Input_Block_Container"]
+anchors_preset = 0
+offset_left = 416.0
+offset_top = 224.0
+offset_right = 864.0
+offset_bottom = 384.0
+
+[node name="Background" type="Panel" parent="Input_Block_Container/Input_Menu_Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_hg7tf")
+
+[node name="Title" type="Label" parent="Input_Block_Container/Input_Menu_Container"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 48.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "Ingreso de Texto"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Input_Container" type="HBoxContainer" parent="Input_Block_Container/Input_Menu_Container"]
+custom_minimum_size = Vector2(400, 32)
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -125.0
-offset_top = -39.0
-offset_right = 125.0
-offset_bottom = -7.0
+offset_left = -200.0
+offset_top = -16.0
+offset_right = 200.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
-placeholder_text = "Escriba aquí..."
+alignment = 1
+
+[node name="Input" type="LineEdit" parent="Input_Block_Container/Input_Menu_Container/Input_Container"]
+custom_minimum_size = Vector2(298, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+placeholder_text = "Nombre..."
 max_length = 4
 context_menu_enabled = false
 caret_blink = true
 
-[node name="Accept_Button" type="Button" parent="Dialog_Window"]
+[node name="Product_Price" type="LineEdit" parent="Input_Block_Container/Input_Menu_Container/Input_Container"]
+visible = false
+custom_minimum_size = Vector2(72, 0)
+layout_mode = 2
+placeholder_text = "Precio..."
+
+[node name="Ingredient_Unit" type="LineEdit" parent="Input_Block_Container/Input_Menu_Container/Input_Container"]
+visible = false
+custom_minimum_size = Vector2(72, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+placeholder_text = "Medida..."
+max_length = 3
+
+[node name="Button_Container" type="HBoxContainer" parent="Input_Block_Container/Input_Menu_Container"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = -60.0
-offset_right = 50.0
-offset_bottom = -20.0
+offset_left = -146.0
+offset_top = -40.0
+offset_right = 146.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 96
+
+[node name="Accept_Button" type="Button" parent="Input_Block_Container/Input_Menu_Container/Button_Container"]
+custom_minimum_size = Vector2(96, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 text = "Aceptar"
 
-[connection signal="close_requested" from="Dialog_Window" to="." method="_on_dialog_window_close_requested"]
-[connection signal="pressed" from="Dialog_Window/Accept_Button" to="." method="_on_accept_button_pressed"]
+[node name="Exit_Button" type="Button" parent="Input_Block_Container/Input_Menu_Container/Button_Container"]
+custom_minimum_size = Vector2(96, 40)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Salir"
+
+[connection signal="pressed" from="Input_Block_Container/Input_Menu_Container/Button_Container/Accept_Button" to="." method="_on_accept_button_pressed"]
+[connection signal="pressed" from="Input_Block_Container/Input_Menu_Container/Button_Container/Exit_Button" to="." method="_on_exit_button_pressed"]

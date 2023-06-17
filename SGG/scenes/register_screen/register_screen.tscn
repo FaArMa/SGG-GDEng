@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bru15uyya0o6r"]
+[gd_scene load_steps=3 format=3 uid="uid://bru15uyya0o6r"]
 
 [ext_resource type="Script" path="res://scenes/register_screen/register_screen.gd" id="1_0iu26"]
+[ext_resource type="StyleBox" uid="uid://cim0paocddqct" path="res://resources/panel_style.tres" id="2_dv1dx"]
 
 [node name="RegisterScreen" type="Control"]
 layout_mode = 3
@@ -11,93 +12,103 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0iu26")
 
-[node name="Background" type="Panel" parent="."]
-layout_mode = 0
+[node name="Register_Scene_Block_Container" type="Control" parent="."]
+anchors_preset = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 
-[node name="Title" type="Label" parent="."]
+[node name="Background" type="Panel" parent="Register_Scene_Block_Container"]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 104.0
+offset_right = 1152.0
+offset_bottom = 576.0
+theme_override_styles/panel = ExtResource("2_dv1dx")
+
+[node name="Title" type="Label" parent="Register_Scene_Block_Container"]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 509.0
-offset_top = 64.0
-offset_right = 771.0
-offset_bottom = 96.0
+offset_left = 504.0
+offset_top = 168.0
+offset_right = 776.0
+offset_bottom = 205.0
 grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
 text = "Registro de Usuarios"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Register" type="Button" parent="."]
+[node name="Register" type="Button" parent="Register_Scene_Block_Container"]
 layout_mode = 1
 anchors_preset = -1
 offset_left = 544.0
-offset_top = 304.0
+offset_top = 368.0
 offset_right = 736.0
-offset_bottom = 368.0
+offset_bottom = 432.0
 grow_horizontal = 2
 disabled = true
 text = "Registrarse"
 
-[node name="Back" type="Button" parent="."]
+[node name="Back" type="Button" parent="Register_Scene_Block_Container"]
 layout_mode = 1
 anchors_preset = -1
 offset_left = 544.0
-offset_top = 384.0
+offset_top = 448.0
 offset_right = 736.0
-offset_bottom = 448.0
+offset_bottom = 512.0
 grow_horizontal = 2
 text = "Volver"
 
-[node name="Incorrect" type="Label" parent="."]
+[node name="Incorrect" type="Label" parent="Register_Scene_Block_Container"]
 visible = false
 custom_minimum_size = Vector2(930, 0)
 layout_mode = 2
-offset_left = 188.0
-offset_top = 259.0
-offset_right = 1118.0
-offset_bottom = 285.0
+offset_left = 176.0
+offset_top = 216.0
+offset_right = 1106.0
+offset_bottom = 242.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 text = "Datos incorrectos"
 vertical_alignment = 1
 
-[node name="Input_Container" type="GridContainer" parent="."]
+[node name="Input_Container" type="GridContainer" parent="Register_Scene_Block_Container"]
 layout_mode = 0
-offset_left = 188.0
-offset_top = 167.0
-offset_right = 1118.0
-offset_bottom = 244.0
+offset_left = 176.0
+offset_top = 256.0
+offset_right = 1106.0
+offset_bottom = 333.0
 theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 15
 columns = 3
 
-[node name="Name" type="LineEdit" parent="Input_Container"]
+[node name="Name" type="LineEdit" parent="Register_Scene_Block_Container/Input_Container"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 placeholder_text = "Nombre..."
 editable = false
 
-[node name="Surname" type="LineEdit" parent="Input_Container"]
+[node name="Surname" type="LineEdit" parent="Register_Scene_Block_Container/Input_Container"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 placeholder_text = "Apellido..."
 editable = false
 
-[node name="DNI" type="LineEdit" parent="Input_Container"]
+[node name="DNI" type="LineEdit" parent="Register_Scene_Block_Container/Input_Container"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 placeholder_text = "DNI..."
 editable = false
 
-[node name="Username" type="LineEdit" parent="Input_Container"]
+[node name="Username" type="LineEdit" parent="Register_Scene_Block_Container/Input_Container"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 tooltip_text = "El usuario es la primer letra del nombre seguido del apellido"
 placeholder_text = "Usuario..."
+max_length = 15
 editable = false
 
-[node name="Password" type="LineEdit" parent="Input_Container"]
+[node name="Password" type="LineEdit" parent="Register_Scene_Block_Container/Input_Container"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 tooltip_text = "La contraseña son los últimos 4 digitos del DNI"
@@ -105,7 +116,7 @@ placeholder_text = "Contraseña..."
 editable = false
 secret = true
 
-[node name="Role" type="OptionButton" parent="Input_Container"]
+[node name="Role" type="OptionButton" parent="Register_Scene_Block_Container/Input_Container"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 disabled = true
@@ -121,10 +132,10 @@ popup/item_3/text = "Contador"
 popup/item_3/id = 3
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="pressed" from="Register" to="." method="_on_register_pressed"]
-[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
-[connection signal="text_changed" from="Input_Container/Name" to="." method="_on_line_edit_text_changed"]
-[connection signal="text_changed" from="Input_Container/Surname" to="." method="_on_line_edit_text_changed"]
-[connection signal="text_changed" from="Input_Container/DNI" to="." method="_on_line_edit_text_changed"]
-[connection signal="text_changed" from="Input_Container/Username" to="." method="_on_line_edit_text_changed"]
-[connection signal="text_changed" from="Input_Container/Password" to="." method="_on_line_edit_text_changed"]
+[connection signal="pressed" from="Register_Scene_Block_Container/Register" to="." method="_on_register_pressed"]
+[connection signal="pressed" from="Register_Scene_Block_Container/Back" to="." method="_on_back_pressed"]
+[connection signal="text_changed" from="Register_Scene_Block_Container/Input_Container/Name" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="Register_Scene_Block_Container/Input_Container/Surname" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="Register_Scene_Block_Container/Input_Container/DNI" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="Register_Scene_Block_Container/Input_Container/Username" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="Register_Scene_Block_Container/Input_Container/Password" to="." method="_on_line_edit_text_changed"]
