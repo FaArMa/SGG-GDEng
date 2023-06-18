@@ -2,6 +2,7 @@ extends Control
 
 
 signal login_screen_return
+signal switched_to_ui
 
 
 @onready var DB = EventBus.database
@@ -59,7 +60,7 @@ func _on_response_user_role(user_role):
 			print("[OK] El rol del mismo es Contador")
 		_:
 			print("[ERROR] El rol del mismo no pudo ser obtenido")
-	get_tree().change_scene_to_file("res://scenes/ui/ui.tscn")
+	emit_signal("switched_to_ui")
 
 
 # Se ejecuta cuando Database envia su señal de response_user_credentials

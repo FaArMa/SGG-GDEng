@@ -2,6 +2,8 @@ extends Control
 
 
 signal register_screen_return
+signal switched_to_ui
+
 
 var modify_user_mode: bool:
 	set(value):
@@ -113,7 +115,7 @@ func _on_response_add_user(register_result):
 		print("[OK] Usuario agregado correctamente")
 		DB.get_user_list()
 		if (is_first_user):
-			get_tree().change_scene_to_file("res://scenes/ui/ui.tscn")
+			emit_signal("switched_to_ui")
 		self.queue_free()
 
 
