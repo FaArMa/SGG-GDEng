@@ -245,9 +245,9 @@ text = "Nuevo Ingrediente"
 custom_minimum_size = Vector2(704, 64)
 layout_mode = 0
 offset_left = 32.0
-offset_top = 736.0
+offset_top = 768.0
 offset_right = 736.0
-offset_bottom = 788.0
+offset_bottom = 832.0
 disabled = true
 text = "Crear Producto"
 
@@ -255,9 +255,9 @@ text = "Crear Producto"
 custom_minimum_size = Vector2(351, 48)
 layout_mode = 0
 offset_left = 208.0
-offset_top = 824.0
+offset_top = 840.0
 offset_right = 559.0
-offset_bottom = 872.0
+offset_bottom = 888.0
 text = "Salir"
 
 [node name="Confirm_Dialog" type="Control" parent="Product_Menu_Block_Container"]
