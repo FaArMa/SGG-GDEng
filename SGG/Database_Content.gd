@@ -35,72 +35,77 @@ func _ready():
 
 # Listado de productos, sus precios y tipos
 func _on_get_product_list(products):
-	product_list.clear()
+	if not products.is_empty():
+		product_list.clear()
 
-	var product_array = products.split(",")
-	var items_per_product = 3
-	var total_products = product_array.size()
-	for i in total_products:
-		if (i % items_per_product):
-			continue
-		product_list[product_array[i]] = [[product_array[i+1],product_array[i+2]]]
+		var product_array = products.split(",")
+		var items_per_product = 3
+		var total_products = product_array.size()
+		for i in total_products:
+			if (i % items_per_product):
+				continue
+			product_list[product_array[i]] = [[product_array[i+1],product_array[i+2]]]
 
 
 # Listado de ingredientes totales
 func _on_get_available_ingredients(available_ingredients):
-	all_available_ingredients.clear()
+	if not available_ingredients.is_empty():
+		all_available_ingredients.clear()
 
-	var available_ingredient_array = available_ingredients.split(",")
-	var items_per_ingredient = 2
-	var total_ingredients = available_ingredient_array.size()
-	for i in total_ingredients:
-		if (i % items_per_ingredient):
-			continue
-		all_available_ingredients[available_ingredient_array[i]] = available_ingredient_array[i+1]
+		var available_ingredient_array = available_ingredients.split(",")
+		var items_per_ingredient = 2
+		var total_ingredients = available_ingredient_array.size()
+		for i in total_ingredients:
+			if (i % items_per_ingredient):
+				continue
+			all_available_ingredients[available_ingredient_array[i]] = available_ingredient_array[i+1]
 
 
 # Listado de ingredientes separados por producto
 func _on_get_product_ingredient_list(ingredients):
-	ingredient_list.clear()
+	if not ingredients.is_empty():
+		ingredient_list.clear()
 
-	var json_reader = JSON.new()
-	if json_reader.parse(ingredients) == OK:
-		ingredient_list = json_reader.get_data()
+		var json_reader = JSON.new()
+		if json_reader.parse(ingredients) == OK:
+			ingredient_list = json_reader.get_data()
 
-	var k = 0
-	for i in product_list.keys():
-		product_list[i].append(ingredient_list[k])
-		k += 1
+		var k = 0
+		for i in product_list.keys():
+			product_list[i].append(ingredient_list[k])
+			k += 1
 
 
 # Listado de cantidades de cada ingrediente separados por producto
 func _on_get_product_ingredient_amount_list(amounts):
-	ingredient_amount_list.clear()
+	if not amounts.is_empty():
+		ingredient_amount_list.clear()
 
-	var json_reader = JSON.new()
-	if json_reader.parse(amounts) == OK:
-		ingredient_amount_list = json_reader.get_data()
+		var json_reader = JSON.new()
+		if json_reader.parse(amounts) == OK:
+			ingredient_amount_list = json_reader.get_data()
 
-	var k = 0
-	for i in product_list.keys():
-		product_list[i].append(ingredient_amount_list[k])
-		k += 1
+		var k = 0
+		for i in product_list.keys():
+			product_list[i].append(ingredient_amount_list[k])
+			k += 1
 
 
 #--------------------- USUARIOS ---------------------#
 
 # Listado de usuarios y sus roles
 func _on_get_user_list(users):
-	user_list.clear()
+	if not users.is_empty():
+		user_list.clear()
 
-	var users_array = users.split(",")
-	var items_per_user = 2
-	var total_users = users_array.size()
-	for i in total_users:
-		if (i % items_per_user):
-			continue
-		user_list[users_array[i]] = users_array[i+1]
-	EventBus.emit_signal("user_list_updated")
+		var users_array = users.split(",")
+		var items_per_user = 2
+		var total_users = users_array.size()
+		for i in total_users:
+			if (i % items_per_user):
+				continue
+			user_list[users_array[i]] = users_array[i+1]
+		EventBus.emit_signal("user_list_updated")
 
 
 func _on_get_user_info(user):
