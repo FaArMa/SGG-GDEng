@@ -5,6 +5,8 @@ signal tables_edited
 @onready var table_scene = preload("res://scenes/mesa/table_scene.tscn")
 @onready var wall_scene = preload("res://scenes/wall_scene/wall_scene.tscn")
 @onready var single_line_input = preload("res://scenes/Single_Line_Input_Scene/single_line_input.tscn")
+@onready var order_scene = preload("res://scenes/order_scene/order_scene_content.tscn")
+@onready var print_order_scene = preload("res://scenes/printable_order/printable_order.tscn")
 @onready var tables: Dictionary = {}
 @onready var walls: Array = []
 @onready var table_add_mode: bool = false
@@ -12,7 +14,11 @@ signal tables_edited
 @onready var wall_edit_mode: bool = false
 @onready var wall_just_deleted: bool = false
 @onready var loading: bool = false
-
+@onready var orders: Dictionary = {}
+@onready var extra_table_info: Dictionary = {}
+#{
+#	nombre_mesa: [[cantidad, producto, precio], [cantidad, producto, precio]]
+#}
 
 func _ready():
 	load_objects()
@@ -65,7 +71,7 @@ func add_table_to_seating_area(text_input: String, pos: Vector2):
 	new_table.position = pos
 	new_table.table_position = pos
 	new_table.table_name = text_input
-	new_table.connect("table_clicked", _on_remove_table_from_seating_area)
+	new_table.connect("table_clicked", _on_table_clicked)
 	tables[new_table] = [new_table.table_name, new_table.table_position]
 	add_child(new_table)
 
@@ -73,7 +79,7 @@ func add_table_to_seating_area(text_input: String, pos: Vector2):
 		save_objects()
 		emit_signal("tables_edited")
 
-	print("- Added ", tables)
+	#print("- Added ", tables)
 
 
 func edit_walls_on_seating_area(pos: Vector2):
@@ -93,7 +99,7 @@ func add_wall_to_seating_area(pos: Vector2):
 	if !loading: save_objects()
 
 
-func _on_remove_table_from_seating_area(_table: Object):
+func _on_table_clicked(_table: Object):
 	if table_remove_mode:
 		tables.erase(_table)
 		_table.delete_table(_table)
@@ -101,6 +107,32 @@ func _on_remove_table_from_seating_area(_table: Object):
 		save_objects()
 		print("- Removed ", tables)
 		emit_signal("tables_edited")
+	else:
+		var order_screen = order_scene.instantiate()
+		add_child(order_screen)
+		if orders.has(_table.table_name):
+			order_screen.fill_order(orders[_table.table_name], extra_table_info[_table.table_name])
+		order_screen.connect("order_sent", _on_order_sent.bind(_table))
+
+
+func _on_order_sent(_products: Array, _cutlery: int, _waiter: int, _table: Object):
+	orders[_table.table_name] = _products
+	extra_table_info[_table.table_name] = [_cutlery, _waiter]
+
+	_table.table_texture_change("TABLE_OCCUPIED")
+
+	var printable_order = print_order_scene.instantiate()
+
+	for i in _products.size():
+		if DatabaseContent.product_list[_products[i][1]][0][1] == "comida":
+			printable_order.get_node("Block_Container/HBoxContainer/Food_Order/Food_Order_List").add_item(_products[i][0])
+			printable_order.get_node("Block_Container/HBoxContainer/Food_Order/Food_Order_List").add_item(_products[i][1])
+		elif DatabaseContent.product_list[_products[i][1]][0][1] == "bebida":
+			printable_order.get_node("Block_Container/HBoxContainer/Drink_Order/Drink_Order_List").add_item(_products[i][0])
+			printable_order.get_node("Block_Container/HBoxContainer/Drink_Order/Drink_Order_List").add_item(_products[i][1])
+
+	add_child(printable_order)
+
 
 
 func _on_remove_wall_from_seating_area(_wall: Object):

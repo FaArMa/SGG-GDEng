@@ -82,7 +82,7 @@ size_flags_horizontal = 2
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = "Crudos y Fritos SRL"
+text = "UTN FRH S.R.L."
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -95,6 +95,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Cutlery_Label" type="Label" parent="Info_Container"]
+visible = false
 custom_minimum_size = Vector2(220, 25)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
@@ -103,6 +104,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Open_Cutlery_Container" type="HBoxContainer" parent="Info_Container"]
+visible = false
 custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
 
@@ -117,11 +119,12 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "125"
+text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Closed_Cutlery_Container" type="HBoxContainer" parent="Info_Container"]
+visible = false
 custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
 
@@ -136,11 +139,12 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "41"
+text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Total_Cutlery_Container" type="HBoxContainer" parent="Info_Container"]
+visible = false
 custom_minimum_size = Vector2(224, 0)
 layout_mode = 2
 
@@ -155,7 +159,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "166"
+text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 

@@ -8,6 +8,6 @@
 script = ExtResource("1_yidh7")
 
 [node name="UI" parent="." instance=ExtResource("2_35sdq")]
-visible = false
 
 [node name="Splash_Screen_Scene" parent="." instance=ExtResource("3_bgcht")]
+visible = false

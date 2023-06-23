@@ -3,6 +3,13 @@ extends Node
 
 var database: Database = Database.new()
 
+var is_popup_login: bool = false
+var table_edit_mode: bool = false
+
+#signal role_checked(username)
+
+signal update_cutlery(quantity, type)
+
 signal tables_modified(_tables: Dictionary)
 signal walls_modified(_walls: Array)
 

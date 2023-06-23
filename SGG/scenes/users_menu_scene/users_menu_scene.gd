@@ -89,11 +89,11 @@ func _on_user_list_item_selected(index):
 		"0":
 			permissions_array = [1,1,1,1,1,1]
 		"1":
-			permissions_array = [0,0,0,1,1,1]
+			permissions_array = [0,0,1,1,1,0]
 		"2":
-			permissions_array = [0,0,0,0,0,1]
+			permissions_array = [0,0,0,0,1,0]
 		"3":
-			permissions_array = [0,0,1,0,0,0]
+			permissions_array = [0,0,0,0,0,1]
 		_:
 			print("%s, wtf?" % current_users[selected_user])
 

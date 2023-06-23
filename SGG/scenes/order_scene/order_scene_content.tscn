@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0yfd8bi7tsb8"]
+[gd_scene load_steps=5 format=3 uid="uid://d0yfd8bi7tsb8"]
 
 [ext_resource type="PackedScene" uid="uid://c5hs6ybpclhvf" path="res://scenes/order_scene/order_scene_table.tscn" id="1_aakxo"]
 [ext_resource type="Script" path="res://scenes/order_scene/order_scene_content.gd" id="1_exe83"]
+[ext_resource type="StyleBox" uid="uid://cim0paocddqct" path="res://resources/panel_style.tres" id="2_s0pau"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ybk20"]
 bg_color = Color(0.352941, 0.352941, 0.352941, 1)
@@ -9,126 +10,212 @@ bg_color = Color(0.352941, 0.352941, 0.352941, 1)
 [node name="OrderSceneContent" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 640.0
-offset_bottom = 360.0
+offset_right = 1280.0
+offset_bottom = 720.0
 script = ExtResource("1_exe83")
 
-[node name="OrderSceneTable" parent="." instance=ExtResource("1_aakxo")]
+[node name="Block_Container" type="Control" parent="."]
 layout_mode = 1
-offset_right = 0.0
-offset_bottom = -112.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="OptionsBackground" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="Block_Container"]
 layout_mode = 0
-offset_top = 248.0
-offset_right = 640.0
-offset_bottom = 360.0
+offset_left = 248.0
+offset_top = 120.0
+offset_right = 1024.0
+offset_bottom = 560.0
+theme_override_styles/panel = ExtResource("2_s0pau")
+
+[node name="OrderSceneTable" parent="Block_Container" instance=ExtResource("1_aakxo")]
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 264.0
+offset_top = 136.0
+offset_right = 904.0
+offset_bottom = 496.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="OptionsBackground" type="Panel" parent="Block_Container"]
+layout_mode = 0
+offset_left = 264.0
+offset_top = 384.0
+offset_right = 904.0
+offset_bottom = 544.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ybk20")
 
-[node name="ProductAmount" type="SpinBox" parent="."]
+[node name="ProductAmount" type="SpinBox" parent="Block_Container"]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 264.0
-offset_right = 128.0
-offset_bottom = 295.0
+offset_left = 280.0
+offset_top = 424.0
+offset_right = 392.0
+offset_bottom = 455.0
 tooltip_text = "Cantidad del producto elegido"
 min_value = 1.0
 value = 1.0
 editable = false
 select_all_on_focus = true
 
-[node name="ProductName" type="OptionButton" parent="."]
+[node name="ProductName" type="OptionButton" parent="Block_Container"]
 layout_mode = 0
-offset_left = 144.0
-offset_top = 264.0
-offset_right = 352.0
-offset_bottom = 296.0
+offset_left = 408.0
+offset_top = 424.0
+offset_right = 616.0
+offset_bottom = 456.0
 tooltip_text = "Seleccione un producto..."
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 12
 disabled = true
-item_count = 6
-popup/item_0/text = "Bebidas"
-popup/item_0/id = 0
-popup/item_0/separator = true
-popup/item_1/text = "AAA"
-popup/item_1/id = 1
-popup/item_2/text = "BBB"
-popup/item_2/id = 2
-popup/item_3/text = "Comidas"
-popup/item_3/id = 3
-popup/item_3/separator = true
-popup/item_4/text = "CCC"
-popup/item_4/id = 4
-popup/item_5/text = "DDD"
-popup/item_5/id = 5
 
-[node name="AddEdit" type="Button" parent="."]
+[node name="AddEdit" type="Button" parent="Block_Container"]
 layout_mode = 0
-offset_left = 368.0
-offset_top = 264.0
-offset_right = 488.0
-offset_bottom = 296.0
+offset_left = 632.0
+offset_top = 424.0
+offset_right = 752.0
+offset_bottom = 456.0
 tooltip_text = "Agregar el producto a la tabla
 Editar el producto seleccionado"
 theme_override_font_sizes/font_size = 14
 disabled = true
 text = "Agregar / Editar"
 
-[node name="Delete" type="Button" parent="."]
+[node name="Delete" type="Button" parent="Block_Container"]
 layout_mode = 0
-offset_left = 504.0
-offset_top = 264.0
-offset_right = 624.0
-offset_bottom = 296.0
+offset_left = 768.0
+offset_top = 424.0
+offset_right = 888.0
+offset_bottom = 456.0
 tooltip_text = "Eliminar el producto seleccionado"
 theme_override_font_sizes/font_size = 14
 disabled = true
 text = "Eliminar"
 
-[node name="Waiter" type="Label" parent="."]
+[node name="Waiter" type="Label" parent="Block_Container"]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 312.0
-offset_right = 128.0
-offset_bottom = 344.0
+offset_left = 408.0
+offset_top = 464.0
+offset_right = 520.0
+offset_bottom = 496.0
 theme_override_font_sizes/font_size = 14
 text = "Mozo a cargo"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="WaiterList" type="OptionButton" parent="."]
+[node name="Product_Label" type="Label" parent="Block_Container"]
 layout_mode = 0
-offset_left = 144.0
-offset_top = 312.0
-offset_right = 352.0
-offset_bottom = 344.0
-tooltip_text = "Seleccione un producto..."
+offset_left = 408.0
+offset_top = 392.0
+offset_right = 520.0
+offset_bottom = 424.0
+theme_override_font_sizes/font_size = 14
+text = "PRODUCTO"
+vertical_alignment = 1
+uppercase = true
+
+[node name="Total_Label" type="Label" parent="Block_Container"]
+layout_mode = 0
+offset_left = 912.0
+offset_top = 256.0
+offset_right = 1016.0
+offset_bottom = 288.0
+theme_override_font_sizes/font_size = 14
+text = "TOTAL"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Total_Amount_Label" type="Label" parent="Block_Container"]
+layout_mode = 0
+offset_left = 912.0
+offset_top = 288.0
+offset_right = 1016.0
+offset_bottom = 320.0
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Quantity_Label" type="Label" parent="Block_Container"]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 392.0
+offset_right = 392.0
+offset_bottom = 424.0
+theme_override_font_sizes/font_size = 14
+text = "CANTIDAD"
+vertical_alignment = 1
+uppercase = true
+
+[node name="Cutlery" type="SpinBox" parent="Block_Container"]
+visible = false
+layout_mode = 0
+offset_left = 280.0
+offset_top = 496.0
+offset_right = 392.0
+offset_bottom = 527.0
+tooltip_text = "Cantidad de comensales en la mesa"
+min_value = 1.0
+value = 1.0
+select_all_on_focus = true
+
+[node name="Cutlery_Label" type="Label" parent="Block_Container"]
+visible = false
+layout_mode = 0
+offset_left = 280.0
+offset_top = 464.0
+offset_right = 392.0
+offset_bottom = 496.0
+theme_override_font_sizes/font_size = 14
+text = "CUBIERTOS"
+vertical_alignment = 1
+uppercase = true
+
+[node name="WaiterList" type="OptionButton" parent="Block_Container"]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 496.0
+offset_right = 616.0
+offset_bottom = 528.0
+tooltip_text = "Seleccione su usuario..."
 theme_override_font_sizes/font_size = 14
 
-[node name="SendOrder" type="Button" parent="."]
+[node name="SendOrder" type="Button" parent="Block_Container"]
 layout_mode = 0
-offset_left = 368.0
-offset_top = 312.0
-offset_right = 488.0
-offset_bottom = 344.0
+offset_left = 632.0
+offset_top = 496.0
+offset_right = 752.0
+offset_bottom = 528.0
 tooltip_text = "Enviar pedido"
 theme_override_font_sizes/font_size = 14
-disabled = true
 text = "Enviar pedido"
 
-[node name="CancelOrder" type="Button" parent="."]
+[node name="CancelOrder" type="Button" parent="Block_Container"]
 layout_mode = 0
-offset_left = 504.0
-offset_top = 312.0
-offset_right = 624.0
-offset_bottom = 344.0
+offset_left = 768.0
+offset_top = 496.0
+offset_right = 888.0
+offset_bottom = 528.0
 tooltip_text = "Cancelar pedido"
 theme_override_font_sizes/font_size = 14
-disabled = true
 text = "Cancelar pedido"
 
-[connection signal="pressed" from="AddEdit" to="." method="_on_add_edit_pressed"]
-[connection signal="pressed" from="Delete" to="." method="_on_delete_pressed"]
-[connection signal="pressed" from="SendOrder" to="." method="_on_send_order_pressed"]
-[connection signal="pressed" from="CancelOrder" to="." method="_on_cancel_order_pressed"]
+[node name="Close_Table" type="Button" parent="Block_Container"]
+layout_mode = 0
+offset_left = 920.0
+offset_top = 136.0
+offset_right = 1008.0
+offset_bottom = 224.0
+text = "Cerrar
+Mesa"
+
+[connection signal="pressed" from="Block_Container/AddEdit" to="." method="_on_add_edit_pressed"]
+[connection signal="pressed" from="Block_Container/Delete" to="." method="_on_delete_pressed"]
+[connection signal="pressed" from="Block_Container/SendOrder" to="." method="_on_send_order_pressed"]
+[connection signal="pressed" from="Block_Container/CancelOrder" to="." method="_on_cancel_order_pressed"]
+[connection signal="pressed" from="Block_Container/Close_Table" to="." method="_on_close_table_pressed"]

@@ -6,8 +6,6 @@ const TABLE_OCCUPIED = preload("res://scenes/mesa/mesa_ocupada.png")
 
 signal table_clicked(table)
 
-var table_is_open = false
-
 var table_name: String:
 	set(value):
 		table_name = value
@@ -23,22 +21,20 @@ var table_position: Vector2:
 func _ready():
 	$Table_Text.text = table_name
 
-func table_texture_change():
-	match($Table_Icon.texture):
-		TABLE_FREE:
+func table_texture_change(state):
+	match state:
+		"TABLE_FREE":
+			$Table_Icon.texture = TABLE_FREE
+		"TABLE_SELECTED":
 			$Table_Icon.texture = TABLE_SELECTED
-		TABLE_SELECTED:
-			if table_is_open:
-				$Table_Icon.texture = TABLE_OCCUPIED
-			else:
-				$Table_Icon.texture = TABLE_FREE
-		TABLE_OCCUPIED:
-			$Table_Icon.texture = TABLE_SELECTED
+		"TABLE_OCCUPIED":
+			$Table_Icon.texture = TABLE_OCCUPIED
 
 func _on_area_mesa_input_event(_viewport, event, _shape_idx):
 	if event.is_action_pressed("left_click"):
-		table_texture_change()
-		emit_signal("table_clicked", self)
+		if not EventBus.table_edit_mode:
+			table_texture_change("TABLE_SELECTED")
+			emit_signal("table_clicked", self)
 
 func delete_table(_table: Object):
 	_table.queue_free()

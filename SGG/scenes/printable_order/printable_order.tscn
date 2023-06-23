@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=3 uid="uid://bco3tsmuh6u4c"]
+
+[ext_resource type="StyleBox" uid="uid://cim0paocddqct" path="res://resources/panel_style.tres" id="1_h1m2y"]
+[ext_resource type="Script" path="res://scenes/printable_order/printable_order.gd" id="1_xnfo3"]
+
+[node name="Printable_Order" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("1_xnfo3")
+
+[node name="Block_Container" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Block_Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 80.0
+offset_bottom = -160.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="Food_Order" type="Panel" parent="Block_Container/HBoxContainer"]
+custom_minimum_size = Vector2(320, 480)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_h1m2y")
+
+[node name="Food_Order_List" type="ItemList" parent="Block_Container/HBoxContainer/Food_Order"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 64.0
+offset_right = 306.0
+offset_bottom = 464.0
+max_columns = 2
+
+[node name="Food_Order_Label" type="Label" parent="Block_Container/HBoxContainer/Food_Order"]
+layout_mode = 0
+offset_right = 322.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 24
+text = "Comanda Cocina"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Drink_Order" type="Panel" parent="Block_Container/HBoxContainer"]
+custom_minimum_size = Vector2(320, 480)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_h1m2y")
+
+[node name="Drink_Order_List" type="ItemList" parent="Block_Container/HBoxContainer/Drink_Order"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 64.0
+offset_right = 302.0
+offset_bottom = 464.0
+max_columns = 2
+
+[node name="Drink_Order_Label" type="Label" parent="Block_Container/HBoxContainer/Drink_Order"]
+layout_mode = 0
+offset_left = -2.0
+offset_right = 320.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 24
+text = "Comanda Barra"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Exit_Button" type="Button" parent="Block_Container"]
+layout_mode = 0
+offset_left = 480.0
+offset_top = 576.0
+offset_right = 800.0
+offset_bottom = 656.0
+theme_override_font_sizes/font_size = 24
+text = "Volver"
+
+[connection signal="pressed" from="Block_Container/Exit_Button" to="." method="_on_exit_button_pressed"]
