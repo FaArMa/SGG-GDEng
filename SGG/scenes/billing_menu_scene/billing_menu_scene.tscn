@@ -79,7 +79,7 @@ vertical_alignment = 1
 [node name="Subtitle2_Label" type="Label" parent="Billing_Menu_Container/Content_Container/Labels_Container"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
-text = "Sólo indique la primera si es que le interesa un único día, mes o año."
+text = "Sólo indique la primera si es que le interesa un único día."
 vertical_alignment = 1
 
 [node name="Input_And_Button_Container" type="GridContainer" parent="Billing_Menu_Container/Content_Container"]
