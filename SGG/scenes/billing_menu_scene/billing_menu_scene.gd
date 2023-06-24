@@ -17,7 +17,7 @@ func _ready():
 	EventBus.connect("billing_list_updated", _on_billing_update)
 	fill_dates()
 
-
+	
 func fill_dates():
 	for i in range(1,32):
 		if i < 10:
@@ -35,7 +35,7 @@ func fill_dates():
 			From_Month.add_item("%d" % i)
 			To_Month.add_item("%d" % i)
 
-	for i in range(2023, 2036):
+	for i in range(2020, 2024):
 		From_Year.add_item("%d" % i)
 		To_Year.add_item("%d" % i)
 
@@ -67,16 +67,16 @@ func _on_accept_button_pressed():
 
 func _on_billing_update():
 	bills_in_search = DatabaseContent.bill_list
-
+		
 	var total_amount = 0
 
 	for i in bills_in_search.keys():
-		Search_Items.add_item(i)
 		Search_Items.add_item(bills_in_search[i][0])
 		Search_Items.add_item(bills_in_search[i][1])
 		Search_Items.add_item(bills_in_search[i][2])
+		Search_Items.add_item(bills_in_search[i][3])
 
-		total_amount = total_amount + bills_in_search[i][1].to_int()
+		total_amount = total_amount + bills_in_search[i][2].to_int()
 
 	Search_Summary.text = "Facturas en período: %d\nTotal Facturado: %.2f" % [bills_in_search.size(), total_amount]
 

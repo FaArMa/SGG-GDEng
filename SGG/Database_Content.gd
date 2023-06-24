@@ -122,10 +122,10 @@ func _on_response_billing_search(result):
 		bill_list.clear()
 
 		var bill_array = result.split(",")
-		var items_per_bill = 4
+		var items_per_bill = 5
 		var total_bills = bill_array.size()
 		for i in total_bills:
 			if (i % items_per_bill):
 				continue
-			bill_list[bill_array[i]] = [bill_array[i+1], bill_array[i+2], bill_array[i+3]]
+			bill_list[bill_array[i]] = [bill_array[i+1], bill_array[i+2], bill_array[i+3], bill_array[i+4]]
 		EventBus.emit_signal("billing_list_updated")
