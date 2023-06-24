@@ -114,6 +114,7 @@ func _on_response_add_user(register_result):
 	else:
 		print("[OK] Usuario agregado correctamente")
 		DB.get_user_list()
+		await DB.httpr.request_completed
 		if (is_first_user):
 			emit_signal("switched_to_ui")
 		self.queue_free()
@@ -150,3 +151,4 @@ func autocomplete_user_info(_user):
 func _on_visibility_changed():
 	if (self.is_visible()):
 		DB.get_users_count()
+		await DB.httpr.request_completed

@@ -48,6 +48,7 @@ func get_user_list() -> void:
 	data = {"action": "get_user_list"}
 	var body = httpc.query_string_from_dict(data)
 	var result = httpr.request(url, headers, HTTPClient.METHOD_POST, body)
+	await httpr.request_completed
 	http_error_exists(httpr, result)
 	return
 
