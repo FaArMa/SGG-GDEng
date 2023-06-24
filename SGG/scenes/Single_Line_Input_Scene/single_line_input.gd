@@ -66,8 +66,8 @@ func _on_accept_button_pressed():
 		# Si es nombre de mesa
 		input_text = input_text.replace(" ","")
 		input_text = input_text.to_upper()
-
-		emit_signal("text_submit", input_text)
+		if not input_text == "":
+			emit_signal("text_submit", input_text)
 
 	product_menu = false
 	product_menu_add_ingredient = false
