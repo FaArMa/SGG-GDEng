@@ -194,7 +194,9 @@ func _on_accept_button_pressed():
 	DB.delete_product(Existing_Product_Name.text)
 	await DB.httpr.request_completed
 	DB.update_products()
+	existing_products.erase(Existing_Product_Name.text)
 	Selected_Ingredient_Name.clear()
+	# FIXME Al eliminar el último producto que queda, no se borran sus ingredientes!
 	Confirm_Dialog.hide()
 
 
@@ -320,6 +322,7 @@ func _on_add_new_product_pressed():
 	Add_Ingredient_Quantity.disabled = true
 	Remove_Ingredient_Quantity.disabled = true
 	Add_New_Product.disabled = true
+	new_product_ingredients.clear()
 
 
 func _on_new_ingredient_add_pressed():

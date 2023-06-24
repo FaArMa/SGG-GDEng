@@ -71,9 +71,16 @@ func _on_get_product_ingredient_list(ingredients):
 			ingredient_list = json_reader.get_data()
 
 		var k = 0
+#		if not ingredient_list.is_empty():
+#			for i in product_list.keys():
+#				product_list[i].append(ingredient_list[k])
+#				k += 1
 		for i in product_list.keys():
-			product_list[i].append(ingredient_list[k])
-			k += 1
+			if k < ingredient_list.size():
+				product_list[i].append(ingredient_list[k])
+				k += 1
+			else:
+				break
 
 
 # Listado de cantidades de cada ingrediente separados por producto
@@ -87,8 +94,11 @@ func _on_get_product_ingredient_amount_list(amounts):
 
 		var k = 0
 		for i in product_list.keys():
-			product_list[i].append(ingredient_amount_list[k])
-			k += 1
+			if k < ingredient_amount_list.size():
+				product_list[i].append(ingredient_amount_list[k])
+				k += 1
+			else:
+				break
 
 
 #--------------------- USUARIOS ---------------------#
