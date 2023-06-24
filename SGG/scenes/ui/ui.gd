@@ -118,9 +118,11 @@ func _on_remove_table_toggled(button_pressed):
 		$Seating_Scene/Seating_Area/Seating_Area_Background.show()
 		$Seating_Scene/Table_Ghost.hide()
 		$Seating_Scene.table_remove_mode = true;
+		EventBus.table_edit_mode = false
 	else:
 		$Seating_Scene/Seating_Area/Seating_Area_Background.hide()
 		$Seating_Scene.table_remove_mode = false;
+		EventBus.table_edit_mode = false
 
 
 func _on_modify_wall_toggled(button_pressed):
