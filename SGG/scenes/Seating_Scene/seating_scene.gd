@@ -130,9 +130,11 @@ func _on_order_sent(_products: Array, _cutlery: int, _waiter: int, _table: Objec
 		elif DatabaseContent.product_list[_products[i][1]][0][1] == "bebida":
 			printable_order.get_node("Block_Container/HBoxContainer/Drink_Order/Drink_Order_List").add_item(_products[i][0])
 			printable_order.get_node("Block_Container/HBoxContainer/Drink_Order/Drink_Order_List").add_item(_products[i][1])
-
+	if printable_order.get_node("Block_Container/HBoxContainer/Food_Order/Food_Order_List").get_item_count() == 0:
+		printable_order.get_node("Block_Container/HBoxContainer/Food_Order").hide()
+	if printable_order.get_node("Block_Container/HBoxContainer/Drink_Order/Drink_Order_List").get_item_count() == 0:
+		printable_order.get_node("Block_Container/HBoxContainer/Drink_Order").hide()
 	add_child(printable_order)
-
 
 
 func _on_remove_wall_from_seating_area(_wall: Object):
