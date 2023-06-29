@@ -244,8 +244,8 @@ func _on_httpr_request_completed(_result, _response_code, _headers, _body) -> vo
 		"add_user":
 			emit_signal("response_add_user", _body)
 		_:
-			print("[ERROR] Action: No está definido o está vacío.")
-			emit_signal("response_error", "Action: No está definido o está vacío.")
+			print("[WARN] Action: No se utiliza localmente.")
+			emit_signal("response_error", "Action: No se utiliza localmente.")
 
 	# Todo se termino
 	return
