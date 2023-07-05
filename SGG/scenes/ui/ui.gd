@@ -25,7 +25,7 @@ func _process(_delta):
 
 func update_datetime_label():
 	system_datetime = Time.get_datetime_dict_from_system()
-	$Info_Container/Date_Time_Label.set_text("%s %s/%s/%s, %s:%s hs" % [WEEKDAYS[system_datetime.weekday], system_datetime.day, system_datetime.month, system_datetime.year, system_datetime.hour, system_datetime.minute])
+	$Info_Container/Date_Time_Label.set_text("%s %02d/%02d/%d, %02d:%02d hs" % [WEEKDAYS[system_datetime.weekday], system_datetime.day, system_datetime.month, system_datetime.year, system_datetime.hour, system_datetime.minute])
 
 
 func _on_update_cutlery(quantity, type):
