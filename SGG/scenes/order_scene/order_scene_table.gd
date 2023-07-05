@@ -106,10 +106,10 @@ func set_row_data(selector_button_pressed, amount, product, price) -> void:
 # Eliminar toda la fila seleccionada
 func delete_row(selector_button_pressed) -> void:
 	var label_nodes = get_label_list(selector_button_pressed)
-	selector_button_pressed.queue_free()
-	label_nodes["AmountLabel"].queue_free()
-	label_nodes["ProductLabel"].queue_free()
-	label_nodes["PriceLabel"].queue_free()
+	selector_button_pressed.free()
+	label_nodes["AmountLabel"].free()
+	label_nodes["ProductLabel"].free()
+	label_nodes["PriceLabel"].free()
 	previous_selector_button = null
 	return
 

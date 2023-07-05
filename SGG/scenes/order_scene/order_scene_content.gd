@@ -19,7 +19,7 @@ func _ready():
 func fill_order(_order: Array, _info: Array):
 	for i in _order.size():
 		table_rows.add_row_with_data(_order[i])
-		total_amount.text = str(total_amount.text.to_float() + (_order[i][2].to_float() * _order[i][0].to_float()))
+		calculate_total()
 	$Block_Container/WaiterList.selected = _info[1]
 	$Block_Container/Cutlery.value = _info[0]
 
@@ -57,16 +57,18 @@ func _on_add_edit_pressed():
 		calculate_total()
 
 
-#-----------------------------------------ARREGLAR
-func calculate_total():
-	for i in table_rows.get_valid_rows().size():
-		#total_amount.text = str(total_amount.text.to_float() + (table_rows.get_valid_rows()[2].to_float() * table_rows.get_valid_rows()[0].to_float()))
-		pass
+func calculate_total() -> void:
+	var valid_rows: Array = table_rows.get_valid_rows()
+	var count: float = 0.0
+	for i in range(2, valid_rows.size(), 3):
+		count += (valid_rows[i-2].to_float() * valid_rows[i].to_float())
+	total_amount.text = "%.2f" % count
 
 
 # Se ejecuta cuando se presiona el boton Delete
 func _on_delete_pressed():
 	table_rows.delete_row(selector_button)
+	calculate_total()
 
 
 # Se ejecuta cuando se presiona el boton SendOrder
