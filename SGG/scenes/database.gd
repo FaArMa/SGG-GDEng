@@ -85,6 +85,14 @@ func get_product_ingredient_amounts() -> void:
 	return
 
 
+func modify_ingredient_stock(_ingredient_name, _stock) -> void:
+	data = {"action": "modify_ingredient_stock", "nombre_ingrediente": _ingredient_name, "stock": _stock}
+	var body = httpc.query_string_from_dict(data)
+	var result = httpr.request(url, headers, HTTPClient.METHOD_POST, body)
+	http_error_exists(httpr, result)
+	return
+
+
 func modify_product_data(new_price, new_product_name, old_product_name) -> void:
 	data = {"action": "modify_product_data", "nuevo_precio": new_price, "nuevo_nombre_producto": new_product_name, "viejo_nombre_producto": old_product_name}
 	var body = httpc.query_string_from_dict(data)

@@ -49,7 +49,7 @@ anchor_right = 1.0
 offset_bottom = 48.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 24
-text = "Ingreso de Texto"
+text = "Ingresar Nombre de Mesa"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -70,7 +70,7 @@ grow_vertical = 2
 alignment = 1
 
 [node name="Input" type="LineEdit" parent="Input_Block_Container/Input_Menu_Container/Input_Container"]
-custom_minimum_size = Vector2(298, 0)
+custom_minimum_size = Vector2(266, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 placeholder_text = "Nombre..."
@@ -91,6 +91,13 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 14
 placeholder_text = "Medida..."
 max_length = 3
+
+[node name="Ingredient_Stock" type="LineEdit" parent="Input_Block_Container/Input_Menu_Container/Input_Container"]
+visible = false
+custom_minimum_size = Vector2(72, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+placeholder_text = "Stock..."
 
 [node name="Button_Container" type="HBoxContainer" parent="Input_Block_Container/Input_Menu_Container"]
 custom_minimum_size = Vector2(0, 48)

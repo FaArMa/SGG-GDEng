@@ -37,6 +37,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 112.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_wtat1")
@@ -206,6 +207,12 @@ layout_mode = 2
 disabled = true
 text = "Quitar"
 
+[node name="Selected_Ingredient_Stock" type="Label" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Selected_Ingredient_Container"]
+custom_minimum_size = Vector2(0, 78)
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 2
+
 [node name="Existing_Ingredient_Container" type="VBoxContainer" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container"]
 layout_mode = 2
 offset_left = 64.0
@@ -241,13 +248,19 @@ layout_mode = 2
 disabled = true
 text = "Nuevo Ingrediente"
 
+[node name="Modify_Ingredient_Stock" type="Button" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Ingredient_Container" groups=["modify_ingredients_group"]]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+disabled = true
+text = "Modificar Stock"
+
 [node name="Add_New_Product" type="Button" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container"]
 custom_minimum_size = Vector2(704, 64)
 layout_mode = 0
 offset_left = 32.0
-offset_top = 768.0
+offset_top = 832.0
 offset_right = 736.0
-offset_bottom = 832.0
+offset_bottom = 896.0
 disabled = true
 text = "Crear Producto"
 
@@ -255,9 +268,9 @@ text = "Crear Producto"
 custom_minimum_size = Vector2(351, 48)
 layout_mode = 0
 offset_left = 208.0
-offset_top = 840.0
+offset_top = 928.0
 offset_right = 559.0
-offset_bottom = 888.0
+offset_bottom = 976.0
 text = "Salir"
 
 [node name="Confirm_Dialog" type="Control" parent="Product_Menu_Block_Container"]
@@ -332,8 +345,10 @@ text = "Cancelar"
 [connection signal="item_selected" from="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/New_Product_Input_Container/New_Product_Text_Container/New_Product_Type" to="." method="_on_new_product_type_item_selected"]
 [connection signal="pressed" from="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/New_Product_Input_Container/New_Product_Button_Container/New_Product_Select_Ingredient" to="." method="_on_new_product_select_ingredient_pressed"]
 [connection signal="pressed" from="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Selected_Ingredient_Container/Selected_Ingredient_Remove" to="." method="_on_selected_ingredient_remove_pressed"]
+[connection signal="item_selected" from="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Ingredient_Container/Existing_Ingredient_Name" to="." method="_on_existing_ingredient_name_item_selected"]
 [connection signal="pressed" from="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Ingredient_Container/Existing_Ingredient_Add" to="." method="_on_existing_ingredient_add_pressed"]
 [connection signal="pressed" from="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Ingredient_Container/New_Ingredient_Add" to="." method="_on_new_ingredient_add_pressed"]
+[connection signal="pressed" from="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Ingredient_Container/Modify_Ingredient_Stock" to="." method="_on_modify_ingredient_stock_pressed"]
 [connection signal="pressed" from="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Add_New_Product" to="." method="_on_add_new_product_pressed"]
 [connection signal="pressed" from="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Exit_Button" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="Product_Menu_Block_Container/Confirm_Dialog/Confirm_Container/Confirm_Buttons_Container/Accept_Button" to="." method="_on_accept_button_pressed"]

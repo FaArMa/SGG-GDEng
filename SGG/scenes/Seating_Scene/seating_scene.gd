@@ -110,6 +110,7 @@ func _on_table_clicked(_table: Object):
 	else:
 		var order_screen = order_scene.instantiate()
 		add_child(order_screen)
+		order_screen.selected_table(_table)
 		if orders.has(_table.table_name):
 			order_screen.fill_order(orders[_table.table_name], extra_table_info[_table.table_name])
 		order_screen.connect("order_sent", _on_order_sent.bind(_table))

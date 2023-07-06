@@ -7,6 +7,7 @@ signal order_sent(products, cutlery, waiter)
 @onready var selector_button: Button
 @onready var is_add_mode: bool = true
 @onready var is_deletable: bool = false
+@onready var table: Object
 
 
 # Se ejecuta cuando el nodo entra en el árbol de escena por primera vez
@@ -88,6 +89,10 @@ func _on_send_order_pressed():
 
 # Se ejecuta cuando se presiona el boton CancelOrder
 func _on_cancel_order_pressed():
+	if table_rows.get_valid_rows() != []:
+		table.table_texture_change("TABLE_OCCUPIED")
+	else:
+		table.table_texture_change("TABLE_FREE")
 	self.queue_free()
 
 
@@ -119,6 +124,12 @@ func find_item_index(option_button: OptionButton, text: String) -> int:
 			return i
 	return -1
 
+func selected_table(_table: Object):
+	table = _table
 
 func _on_close_table_pressed():
-	pass # Replace with function body.
+	table.table_texture_change("TABLE_FREE")
+
+	# TODO
+
+	self.queue_free()

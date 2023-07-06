@@ -16,15 +16,17 @@ signal ingredients_available
 #
 #	INGREDIENTES
 #{
-#	"carne": "gr",
-#	"fernet": "lt",
-#	"coca": "lt",
-#	"cebolla": "gr"
+#	"carne": ["gr","205"],
+#	"fernet": ["lt","340],
+#	"coca": ["lt","312],
+#	"cebolla": ["gr","200"]
 #}
 
 var selected_product_name
+var ingredient_selected
 var new_product: Array = []
 var new_product_ingredients: Dictionary = {}
+var created_ingredients: Dictionary = {}
 
 var Existing_Product_Name
 var Existing_Product_Price
@@ -49,6 +51,8 @@ var Add_Ingredient_Quantity
 var Ingredient_Remove_Quantity_Input
 var Remove_Ingredient_Quantity
 var Add_New_Ingredient
+var Modify_Ingredient_Stock
+var Selected_Ingredient_Stock
 
 var Add_New_Product
 
@@ -86,6 +90,8 @@ func _ready():
 	Ingredient_Remove_Quantity_Input = $Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Selected_Ingredient_Container/Selected_Ingredient_Quantity
 	Remove_Ingredient_Quantity = $Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Selected_Ingredient_Container/Selected_Ingredient_Remove
 	Add_New_Ingredient = $Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Ingredient_Container/New_Ingredient_Add
+	Modify_Ingredient_Stock = $Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Existing_Ingredient_Container/Modify_Ingredient_Stock
+	Selected_Ingredient_Stock = $Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Selected_Ingredient_Container/Selected_Ingredient_Stock
 
 	Add_New_Product = $Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container/Add_New_Product
 
@@ -153,7 +159,7 @@ func _on_existing_product_name_item_selected(index):
 
 		ingredient_name = existing_products[selected_product_name][1][i]
 		ingredient_amount = existing_products[selected_product_name][2][i]
-		ingredient_unit = existing_ingredients[ingredient_name]
+		ingredient_unit = existing_ingredients[ingredient_name][0]
 
 		product_ingredient = "%s, %s %s" % [ingredient_name, ingredient_amount, ingredient_unit]
 		Selected_Ingredient_Name.add_item(product_ingredient)
@@ -167,16 +173,36 @@ func _on_modify_product_pressed():
 		add_child(input)
 
 
-func _on_text_submit(_extra_input, _name, _is_ingredient):
+func _on_text_submit(_price_or_unit, _stock, _name, _is_ingredient):
 	var DB = EventBus.database
+	var await_flag = true
 
 	if not _is_ingredient:
-		DB.modify_product_data(_extra_input, _name, selected_product_name)
+		# Si es precio o nombre de producto
+		DB.modify_product_data(_price_or_unit, _name, selected_product_name)
+	else:
+		# Si es nombre, unidad y stock de ingrediente
+		# Si sólo se modifica el stock
+		if _price_or_unit == "" and _name == "" and not _stock == "":
+			DB.modify_ingredient_stock(ingredient_selected, _stock)
+		elif _price_or_unit == "" and _name == "" and _stock == "":
+			pass
+		else:
+			# Si se crea un nuevo ingrediente (nombre, unidad y stock)
+			Existing_Ingredient_Name.add_item(_name)
+
+			if not existing_ingredients.has(_name):
+				created_ingredients[_name] = _stock
+
+			existing_ingredients[_name] = [_price_or_unit,_stock]
+
+			await_flag = false
+
+	if await_flag:
 		await DB.httpr.request_completed
 		DB.update_products()
-	else:
-		Existing_Ingredient_Name.add_item(_name)
-		existing_ingredients[_name] = _extra_input
+
+	Selected_Ingredient_Stock.text = ""
 
 
 func _on_delete_product_pressed():
@@ -255,15 +281,16 @@ func _on_new_product_select_ingredient_pressed():
 func _on_existing_ingredient_add_pressed():
 	if Existing_Ingredient_Name.is_anything_selected() and not Ingredient_Add_Quantity_Input.text == "" and Ingredient_Add_Quantity_Input.text.is_valid_float():
 		var ingredient_name = Existing_Ingredient_Name.get_item_text(Existing_Ingredient_Name.get_selected_items()[0])
-		var ingredient_type = existing_ingredients[ingredient_name]
+		var ingredient_unit = existing_ingredients[ingredient_name][0]
 		var ingredient_amount = Ingredient_Add_Quantity_Input.text.to_float()
+		var ingredient_stock = existing_ingredients[ingredient_name][1]
 
 		Selected_Ingredient_Name.clear()
 
 		if new_product_ingredients.has(ingredient_name):
 			new_product_ingredients[ingredient_name][0] += ingredient_amount
 		else:
-			new_product_ingredients[ingredient_name] = [ingredient_amount, ingredient_type]
+			new_product_ingredients[ingredient_name] = [ingredient_amount, ingredient_unit, ingredient_stock]
 
 		for i in new_product_ingredients.keys():
 			Selected_Ingredient_Name.add_item("%s, %.2f %s" % [i, new_product_ingredients[i][0], new_product_ingredients[i][1]])
@@ -305,6 +332,7 @@ func _on_add_new_product_pressed():
 
 	DB.add_product(new_product[0],new_product[2],new_product[1],new_product_ingredients)
 	await DB.httpr.request_completed
+
 	DB.update_products()
 
 	Selected_Ingredient_Name.clear()
@@ -330,4 +358,18 @@ func _on_new_ingredient_add_pressed():
 		var input = single_line_input_scene.instantiate()
 		input.connect("text_submit", _on_text_submit.bind(1))
 		input.product_menu_add_ingredient = true
+		add_child(input)
+
+
+func _on_existing_ingredient_name_item_selected(index):
+	ingredient_selected = Existing_Ingredient_Name.get_item_text(index)
+	Modify_Ingredient_Stock.disabled = false
+	Selected_Ingredient_Stock.text = "%s en stock: %s %s" % [ingredient_selected, existing_ingredients[ingredient_selected][1], existing_ingredients[ingredient_selected][0]]
+
+
+func _on_modify_ingredient_stock_pressed():
+	if Existing_Ingredient_Name.is_anything_selected():
+		var input = single_line_input_scene.instantiate()
+		input.connect("text_submit", _on_text_submit.bind(1))
+		input.modify_ingredient_stock = true
 		add_child(input)

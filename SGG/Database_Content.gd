@@ -53,12 +53,12 @@ func _on_get_available_ingredients(available_ingredients):
 		all_available_ingredients.clear()
 
 		var available_ingredient_array = available_ingredients.split(",")
-		var items_per_ingredient = 2
+		var items_per_ingredient = 3
 		var total_ingredients = available_ingredient_array.size()
 		for i in total_ingredients:
 			if (i % items_per_ingredient):
 				continue
-			all_available_ingredients[available_ingredient_array[i]] = available_ingredient_array[i+1]
+			all_available_ingredients[available_ingredient_array[i]] = [available_ingredient_array[i+1], available_ingredient_array[i+2]]
 
 
 # Listado de ingredientes separados por producto
