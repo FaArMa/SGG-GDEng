@@ -101,12 +101,13 @@ func add_wall_to_seating_area(pos: Vector2):
 
 func _on_table_clicked(_table: Object):
 	if table_remove_mode:
-		tables.erase(_table)
-		_table.delete_table(_table)
-		remove_child(_table)
-		save_objects()
-		print("- Removed ", tables)
-		emit_signal("tables_edited")
+		if not _table.table_state == "occupied":
+			tables.erase(_table)
+			_table.delete_table(_table)
+			remove_child(_table)
+			save_objects()
+			print("- Removed ", tables)
+			emit_signal("tables_edited")
 	else:
 		var order_screen = order_scene.instantiate()
 		add_child(order_screen)
