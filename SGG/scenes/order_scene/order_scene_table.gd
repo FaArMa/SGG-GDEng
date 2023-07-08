@@ -130,7 +130,8 @@ func add_row_with_data(_order: Array) -> void:
 	duplicate_row()
 	var selector_button = $ScrollContainer/Control/GridSelector.get_child(total_rows)
 	set_row_data(selector_button, _order[0], _order[1], _order[2])
-	selector_button.disabled = false
+	selector_button.modulate = Color(1.0, 0, 0, 0.75)
+	selector_button.disabled = true
 	move_second_row_to_end()
 	return
 

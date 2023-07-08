@@ -7,6 +7,9 @@ signal response_users_count(count)
 signal response_user_role(user_role)
 signal response_user_credentials(are_valid_user_credentials)
 signal response_add_user(register_result)
+signal response_update_ingredient_stock_decrease(update_successfully)
+signal response_update_ingredient_stock_increase(update_successfully)
+signal response_check_ingredient_stock(update_successfully)
 signal response_error(error_msg)
 
 
@@ -87,6 +90,30 @@ func get_product_ingredient_amounts() -> void:
 
 func modify_ingredient_stock(_ingredient_name, _stock) -> void:
 	data = {"action": "modify_ingredient_stock", "nombre_ingrediente": _ingredient_name, "stock": _stock}
+	var body = httpc.query_string_from_dict(data)
+	var result = httpr.request(url, headers, HTTPClient.METHOD_POST, body)
+	http_error_exists(httpr, result)
+	return
+
+
+func update_ingredient_stock_decrease(_product_name, _amount) -> void:
+	data = {"action": "update_ingredient_stock_decrease", "nombre_producto": _product_name, "cantidad": _amount}
+	var body = httpc.query_string_from_dict(data)
+	var result = httpr.request(url, headers, HTTPClient.METHOD_POST, body)
+	http_error_exists(httpr, result)
+	return
+
+
+func update_ingredient_stock_increase(_product_name, _amount) -> void:
+	data = {"action": "update_ingredient_stock_increase", "nombre_producto": _product_name, "cantidad": _amount}
+	var body = httpc.query_string_from_dict(data)
+	var result = httpr.request(url, headers, HTTPClient.METHOD_POST, body)
+	http_error_exists(httpr, result)
+	return
+
+
+func check_ingredient_stock(_product_name, _amount) -> void:
+	data = {"action": "check_ingredient_stock", "nombre_producto": _product_name, "cantidad": _amount}
 	var body = httpc.query_string_from_dict(data)
 	var result = httpr.request(url, headers, HTTPClient.METHOD_POST, body)
 	http_error_exists(httpr, result)
@@ -251,6 +278,12 @@ func _on_httpr_request_completed(_result, _response_code, _headers, _body) -> vo
 			emit_signal("response_user_credentials", _body)
 		"add_user":
 			emit_signal("response_add_user", _body)
+		"update_ingredient_stock_decrease":
+			emit_signal("response_update_ingredient_stock_decrease", _body)
+		"update_ingredient_stock_increase":
+			emit_signal("response_update_ingredient_stock_increase", _body)
+		"check_ingredient_stock":
+			emit_signal("response_check_ingredient_stock", _body)
 		_:
 			print("[WARN] Action: No se utiliza localmente.")
 			emit_signal("response_error", "Action: No se utiliza localmente.")

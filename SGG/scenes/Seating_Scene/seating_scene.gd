@@ -17,7 +17,7 @@ signal tables_edited
 @onready var orders: Dictionary = {}
 @onready var extra_table_info: Dictionary = {}
 #{
-#	nombre_mesa: [[cantidad, producto, precio], [cantidad, producto, precio]]
+#	nombre_mesa: [[cantidad, producto, precio, is_sended], [cantidad, producto, precio, is_sended]]
 #}
 
 func _ready():
@@ -125,12 +125,13 @@ func _on_order_sent(_products: Array, _cutlery: int, _waiter: int, _table: Objec
 	var printable_order = print_order_scene.instantiate()
 
 	for i in _products.size():
-		if DatabaseContent.product_list[_products[i][1]][0][1] == "comida":
-			printable_order.get_node("Block_Container/HBoxContainer/Food_Order/Food_Order_List").add_item(_products[i][0])
-			printable_order.get_node("Block_Container/HBoxContainer/Food_Order/Food_Order_List").add_item(_products[i][1])
-		elif DatabaseContent.product_list[_products[i][1]][0][1] == "bebida":
-			printable_order.get_node("Block_Container/HBoxContainer/Drink_Order/Drink_Order_List").add_item(_products[i][0])
-			printable_order.get_node("Block_Container/HBoxContainer/Drink_Order/Drink_Order_List").add_item(_products[i][1])
+		if _products[i][3] == 0:
+			if DatabaseContent.product_list[_products[i][1]][0][1] == "comida":
+				printable_order.get_node("Block_Container/HBoxContainer/Food_Order/Food_Order_List").add_item(_products[i][0])
+				printable_order.get_node("Block_Container/HBoxContainer/Food_Order/Food_Order_List").add_item(_products[i][1])
+			elif DatabaseContent.product_list[_products[i][1]][0][1] == "bebida":
+				printable_order.get_node("Block_Container/HBoxContainer/Drink_Order/Drink_Order_List").add_item(_products[i][0])
+				printable_order.get_node("Block_Container/HBoxContainer/Drink_Order/Drink_Order_List").add_item(_products[i][1])
 	if printable_order.get_node("Block_Container/HBoxContainer/Food_Order/Food_Order_List").get_item_count() == 0:
 		printable_order.get_node("Block_Container/HBoxContainer/Food_Order").hide()
 	if printable_order.get_node("Block_Container/HBoxContainer/Drink_Order/Drink_Order_List").get_item_count() == 0:
