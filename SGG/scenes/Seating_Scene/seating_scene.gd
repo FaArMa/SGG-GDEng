@@ -7,6 +7,7 @@ signal tables_edited
 @onready var single_line_input = preload("res://scenes/Single_Line_Input_Scene/single_line_input.tscn")
 @onready var order_scene = preload("res://scenes/order_scene/order_scene_content.tscn")
 @onready var print_order_scene = preload("res://scenes/printable_order/printable_order.tscn")
+@onready var print_ticket_scene = preload("res://scenes/printable_ticket/printable_ticket.tscn")
 @onready var tables: Dictionary = {}
 @onready var walls: Array = []
 @onready var table_add_mode: bool = false
@@ -22,6 +23,7 @@ signal tables_edited
 
 func _ready():
 	load_objects()
+	EventBus.connect("table_closed", _on_table_closed)
 
 
 func _on_seating_area_input_event(_viewport, event, _shape_idx):
@@ -115,6 +117,7 @@ func _on_table_clicked(_table: Object):
 		if orders.has(_table.table_name):
 			order_screen.fill_order(orders[_table.table_name], extra_table_info[_table.table_name])
 		order_screen.connect("order_sent", _on_order_sent.bind(_table))
+		order_screen.connect("table_closed", _on_table_closed)
 
 
 func _on_order_sent(_products: Array, _cutlery: int, _waiter: int, _table: Object):
@@ -138,6 +141,25 @@ func _on_order_sent(_products: Array, _cutlery: int, _waiter: int, _table: Objec
 	if printable_order.get_node("Block_Container/HBoxContainer/Drink_Order/Drink_Order_List").get_item_count() == 0:
 		printable_order.get_node("Block_Container/HBoxContainer/Drink_Order").hide()
 	add_child(printable_order)
+
+
+func _on_table_closed(_table: Object):
+	orders.erase(_table.table_name)
+	
+#	orders[_table.table_name] = _products	
+#
+#	_table.table_texture_change("TABLE_OCCUPIED")
+#
+#	var printable_ticket = print_ticket_scene.instantiate()
+#
+#	for i in _products.size():
+#		printable_ticket.get_node("Block_Container/HBoxContainer/Ticket_Detail/Purchased_Item_List").add_item(_products[i][0])
+#		printable_ticket.get_node("Block_Container/HBoxContainer/Ticket_Detail/Purchased_Item_List").add_item(_products[i][1])
+#		printable_ticket.get_node("Block_Container/HBoxContainer/Ticket_Detail/Purchased_Item_List").add_item(_products[i][2])
+#	printable_ticket.get_node("Block_Container/HBoxContainer/Ticket_Detail/Table_Label").text = "Mesa: %s" % _table.table_name
+#	printable_ticket.get_node("Block_Container/HBoxContainer/Ticket_Detail/Waiter_Label").text = "Mozo: %s" % _waiter
+#	printable_ticket.get_node("Block_Container/HBoxContainer/Ticket_Detail/Total_Label").text = "Total: %s" % _total
+#	add_child(printable_ticket)
 
 
 func _on_remove_wall_from_seating_area(_wall: Object):
@@ -178,3 +200,4 @@ func load_objects():
 		add_wall_to_seating_area(loaded_objects[1][i].wall_position)
 
 	loading = false
+

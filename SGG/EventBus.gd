@@ -13,6 +13,8 @@ signal update_cutlery(quantity, type)
 signal tables_modified(_tables: Dictionary)
 signal walls_modified(_walls: Array)
 
+signal table_closed(table)
+signal response_generate_bill(ticket_id)
 signal response_product_list(products)
 signal response_available_ingredients(available_ingredients)
 signal response_product_ingredient_list(ingredients)

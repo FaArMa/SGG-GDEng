@@ -2,8 +2,11 @@ extends Control
 
 
 signal order_sent(products, cutlery, waiter)
+signal table_closed(_table)
 
 
+@onready var ticket_id
+@onready var ticket_scene = preload("res://scenes/printable_ticket/printable_ticket.tscn")
 @onready var DB = EventBus.database
 @onready var table_rows = $Block_Container/OrderSceneTable
 @onready var total_amount = $Block_Container/Total_Amount_Label
@@ -166,11 +169,25 @@ func selected_table(_table: Object):
 
 # Se ejecuta cuando se presiona el boton Close_Table
 func _on_close_table_pressed():
-	table.table_texture_change("TABLE_FREE")
+	if not $Block_Container/WaiterList.selected == -1 and not products_in_order.is_empty():
+		var waiter = $Block_Container/WaiterList.get_item_text($Block_Container/WaiterList.get_selected())
+		var total = 0.0		
+		var products: Dictionary = {}
+		var ticket_screen = ticket_scene.instantiate()
+		for i in products_in_order.size():
+			total = total + (products_in_order[i][0].to_float() * products_in_order[i][2].to_float())
+			products[products_in_order[i][1]] = products_in_order[i][0]
+		DB.generate_bill(table.table_name, waiter, products, total)
+		add_child(ticket_screen)
+		EventBus.connect("response_generate_bill", _on_response_generate_bill.bind(table.table_name, waiter, total, products_in_order, ticket_screen, self))
+		table.table_texture_change("TABLE_FREE")
 
-	# TODO
 
-	self.queue_free()
+func _on_response_generate_bill(id_ticket, table_name, waiter, total, _products_in_order, scene, _order_scene):
+	scene.fill_ticket(table_name, waiter, total, _products_in_order, id_ticket)
+	scene.assign_parent(_order_scene)
+	products_in_order.clear()
+	emit_signal("table_closed", table)
 
 
 # Se ejecuta cuando Database envia su señal de response_update_ingredient_stock_decrease

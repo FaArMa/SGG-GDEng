@@ -160,8 +160,8 @@ func get_user_info(username) -> void:
 	return
 
 
-func generate_bill(table_name, username, products) -> void:
-	data = {"action": "generate_bill", "mesa": table_name, "nombre_usuario": username, "productos": products}
+func generate_bill(table_name, username, products, total) -> void:
+	data = {"action": "generate_bill", "mesa": table_name, "nombre_usuario": username, "productos": products, "importe": total}
 	var body = httpc.query_string_from_dict(data)
 	var result = httpr.request(url, headers, HTTPClient.METHOD_POST, body)
 	http_error_exists(httpr, result)
@@ -252,6 +252,8 @@ func _on_httpr_request_completed(_result, _response_code, _headers, _body) -> vo
 
 	# Enviar la señal que corresponda
 	match data["action"]:
+		"generate_bill":
+			EventBus.emit_signal("response_generate_bill", _body)
 		"billing_search":
 			EventBus.emit_signal("response_billing_search", _body)
 		"get_user_info":

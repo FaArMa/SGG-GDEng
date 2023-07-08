@@ -1,0 +1,166 @@
+[gd_scene load_steps=3 format=3 uid="uid://dggvufrs4j0vq"]
+
+[ext_resource type="Script" path="res://scenes/printable_ticket/printable_ticket.gd" id="1_0cvhl"]
+[ext_resource type="StyleBox" uid="uid://cim0paocddqct" path="res://resources/panel_style.tres" id="2_7nsbk"]
+
+[node name="Printable_Ticket" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("1_0cvhl")
+
+[node name="Block_Container" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Block_Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 80.0
+offset_bottom = -160.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="Ticket_Detail" type="Panel" parent="Block_Container/HBoxContainer"]
+custom_minimum_size = Vector2(360, 520)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_7nsbk")
+
+[node name="Purchased_Item_List" type="ItemList" parent="Block_Container/HBoxContainer/Ticket_Detail"]
+clip_contents = false
+layout_mode = 0
+offset_left = 12.0
+offset_top = 164.0
+offset_right = 348.0
+offset_bottom = 440.0
+focus_neighbor_bottom = NodePath("../../../Confirm_Button")
+max_columns = 3
+
+[node name="Establishment_Label" type="Label" parent="Block_Container/HBoxContainer/Ticket_Detail"]
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 20
+text = "UTN FRH S.R.L."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Total_Label" type="Label" parent="Block_Container/HBoxContainer/Ticket_Detail"]
+layout_mode = 0
+offset_left = 185.0
+offset_top = 452.0
+offset_right = 345.0
+offset_bottom = 484.0
+theme_override_font_sizes/font_size = 20
+text = "Total: %s"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Table_Label" type="Label" parent="Block_Container/HBoxContainer/Ticket_Detail"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 84.0
+offset_right = 164.0
+offset_bottom = 118.0
+theme_override_font_sizes/font_size = 16
+text = "Mesa: %s"
+vertical_alignment = 1
+
+[node name="Waiter_Label" type="Label" parent="Block_Container/HBoxContainer/Ticket_Detail"]
+layout_mode = 0
+offset_left = 188.0
+offset_top = 84.0
+offset_right = 348.0
+offset_bottom = 118.0
+theme_override_font_sizes/font_size = 16
+text = "Mozo: %s"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Legend_Label" type="Label" parent="Block_Container/HBoxContainer/Ticket_Detail"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 480.0
+offset_right = 261.0
+offset_bottom = 514.0
+theme_override_font_sizes/font_size = 15
+text = "Gracias por elegirnos!"
+vertical_alignment = 1
+
+[node name="Date_Label" type="Label" parent="Block_Container/HBoxContainer/Ticket_Detail"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 108.0
+offset_right = 164.0
+offset_bottom = 142.0
+theme_override_font_sizes/font_size = 16
+text = "Fecha: %s"
+vertical_alignment = 1
+
+[node name="Time_Label" type="Label" parent="Block_Container/HBoxContainer/Ticket_Detail"]
+layout_mode = 0
+offset_left = 188.0
+offset_top = 108.0
+offset_right = 348.0
+offset_bottom = 142.0
+theme_override_font_sizes/font_size = 16
+text = "Hora: %s"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Item_Label" type="Label" parent="Block_Container/HBoxContainer/Ticket_Detail"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 140.0
+offset_right = 172.0
+offset_bottom = 174.0
+theme_override_font_sizes/font_size = 14
+text = "Item"
+vertical_alignment = 1
+
+[node name="Pricing_Label" type="Label" parent="Block_Container/HBoxContainer/Ticket_Detail"]
+layout_mode = 0
+offset_left = 292.0
+offset_top = 140.0
+offset_right = 348.0
+offset_bottom = 174.0
+theme_override_font_sizes/font_size = 14
+text = "Importe"
+vertical_alignment = 1
+
+[node name="Amount_Label" type="Label" parent="Block_Container/HBoxContainer/Ticket_Detail"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 140.0
+offset_right = 48.0
+offset_bottom = 174.0
+theme_override_font_sizes/font_size = 14
+text = "Cant."
+vertical_alignment = 1
+
+[node name="Ticket_ID_Label" type="Label" parent="Block_Container/HBoxContainer/Ticket_Detail"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 60.0
+offset_right = 164.0
+offset_bottom = 94.0
+theme_override_font_sizes/font_size = 16
+text = "N° Ticket: %d"
+vertical_alignment = 1
+
+[node name="Confirm_Button" type="Button" parent="Block_Container"]
+layout_mode = 0
+offset_left = 464.0
+offset_top = 600.0
+offset_right = 816.0
+offset_bottom = 680.0
+theme_override_font_sizes/font_size = 24
+text = "Confirmar"
+
+[connection signal="pressed" from="Block_Container/Confirm_Button" to="." method="_on_exit_button_pressed" flags=18]
