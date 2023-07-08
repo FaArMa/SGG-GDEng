@@ -29,7 +29,7 @@ horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
 [node name="Product_Main_Menu_container" type="Control" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container"]
-custom_minimum_size = Vector2(768, 896)
+custom_minimum_size = Vector2(768, 1008)
 layout_mode = 2
 
 [node name="Product_Menu_Background" type="Panel" parent="Product_Menu_Block_Container/Product_Menu_Scroll_Container/Product_Main_Menu_container"]
@@ -37,7 +37,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = 112.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_wtat1")
